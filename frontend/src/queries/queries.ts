@@ -23,6 +23,7 @@ export const useSessionQuery = () => {
     return useQuery(SESSION, () => {
         const mockSession: core.Session = {
             id: '1',
+            campaignId: '1',
             name: 'Capital',
             number: 69,
         }

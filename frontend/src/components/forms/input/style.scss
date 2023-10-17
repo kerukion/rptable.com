@@ -1,0 +1,29 @@
+.form-input {
+    width: 200px;
+    height: 35px;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 0 10px;
+    border: 1px solid #c3c3c3;
+    text-overflow: ellipsis;
+
+    &:focus {
+        outline: 3px solid #ccdeff;
+    }
+
+    &--error {
+        border: 1px solid red;
+    }
+
+    &--medium {
+        width: 300px;
+    }
+
+    &--large {
+        width: 400px;
+    }
+
+    &--elastic {
+        width: 100%;
+    }
+}

@@ -24,13 +24,13 @@ module.exports = {
     },
     module: {
         rules: [
-            { 
-                test: /\.tsx?$/, 
-                use: 'ts-loader', 
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
                 exclude: /node_modules/,
             },
             {
-                test: /\.scss$/, 
+                test: /\.scss$/,
                 use: [
                     'style-loader',
                     'css-loader',

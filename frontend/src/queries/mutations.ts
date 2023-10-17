@@ -12,7 +12,6 @@ export const useLoginMutation = (queryClient: QueryClient) => {
         return APIService.login((googleData as GoogleLoginResponse).tokenId)
     }, {
         onSuccess: (data: db.user.Schema) => {
-            console.log(data);
             queryClient.setQueryData(CURRENT_USER, data);
         }
     });

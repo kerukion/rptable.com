@@ -20,16 +20,3 @@ html, body {
     display: flex;
     flex-direction: column;
 }
-
-button {
-	background: #222222;
-    color: white;
-    border: 1px solid gray;
-    text-transform: uppercase;
-    font-family: monospace;
-    padding: 5px 15px;
-    min-width: 85px;
-	height: 28px;
-    font-size: 14px;
-	cursor: pointer;
-}

@@ -1,9 +1,9 @@
 import { Component } from 'preact';
 import { route } from 'preact-router';
 
-export class RedirectToLogin extends Component {
+export class RedirectTo extends Component<{to: string}> {
   componentWillMount() {
-    route('/login', true);
+    route(this.props.to, true);
   }
 
   render() {

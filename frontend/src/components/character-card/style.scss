@@ -1,0 +1,88 @@
+.character-card {
+    position: relative;
+    border: 1px solid darkgrey;
+    display: flex;
+    flex-direction: row;
+    background: #efe8df;
+    padding: 5px;
+    border-radius: 6px;
+
+    &--img {
+        height: 50px;
+        border: 1px solid black;
+        border-radius: 6px;
+        background: black;
+        margin-right: 5px;
+    }
+
+    &--ids {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--name {
+        font-size: 15px;
+        font-weight: 500;
+        color: black;
+        margin: 0;
+    }
+
+    &--subtitle {
+        font-weight: normal;
+        color: #363636;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    &--spells {    
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        margin-right: 2px;
+    }
+
+    &--defense {
+        position: absolute;
+        bottom: 1px;
+        right: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+
+        .shield-icon {
+            height: 35px;
+            filter: invert(20%) sepia(0%) saturate(500%) hue-rotate(
+        0deg);
+        }
+
+        .text {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+    }
+
+    &--hp {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 15px;
+        color: #d92929;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+
+        .text {
+            font-size: 11px;
+            padding-left: 1px;
+        }
+    }
+}

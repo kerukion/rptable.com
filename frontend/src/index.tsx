@@ -1,7 +1,7 @@
 import './style.scss';
 import { FunctionalComponent, h, render } from 'preact';
 import { Header } from './components/header';
-import { Home, Login, NotFound, RedirectToLogin, Combat } from './routes';
+import { Home, Login, Combat, RedirectTo, NewCombat } from './routes';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Router } from 'preact-router';
 import { useLoginQuery } from './queries';
@@ -16,23 +16,25 @@ const MainRoutes: FunctionalComponent = () => {
     if (userQuery.error || !userQuery.data) {
         return (<Router>
             <Route path="/login" component={Login} />
-            <RedirectToLogin default />
+            {/* delete this vv */}
+            <Route path="/combat" component={Combat} /> 
+            <Route path="/combat/new" component={NewCombat} /> 
+            <RedirectTo to="/login" default />
         </Router>)
     }
 
     return (
         <Router>
             <Route path="/" component={Home} />
-            <Route path="/login" component={Login} />
             <Route path="/combat" component={Combat} />
             {/* <Route path="/profile/:user" component={Profile} /> */}
-            <NotFound default />
+            <RedirectTo to="/" default />
         </Router>
     );
 };
 
 const App: FunctionalComponent = () => {
-    const queryClient = new QueryClient()
+    const queryClient = new QueryClient({ defaultOptions: {queries: {refetchOnWindowFocus: false}}})
 
     return (
         <div id="preact_root">

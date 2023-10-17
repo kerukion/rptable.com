@@ -16,7 +16,7 @@ export const Home: FunctionalComponent = () => {
             <div className="home--title-bar">
                 <h2>Choose your Campaign</h2>
                 <div className="home--new-campaign">
-                    <button>
+                    <button className="create">
                         + New Campaign
                         <div className="home--campaign-slots">
                             (1/2 slots used)

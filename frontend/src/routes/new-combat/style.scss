@@ -1,0 +1,164 @@
+.new-combat {
+	padding: 20px;
+	height: 100%;
+	width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+	&--header {
+		display: flex;
+		align-items: flex-end;
+		margin-bottom: 10px;
+		h1 {
+			margin: 0;
+		}
+	}
+
+	&--body {
+		display: flex;
+		height: 100%;
+		width: 100%;
+
+		.section-title {
+			margin: 0;
+			margin-bottom: 10px;
+		}
+
+		.section-body {
+			display: flex;
+			height: 100%;
+			padding-bottom: 40px;
+			width: 100%;
+		}
+	}
+
+	&--details {
+		.form-row {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 10px;
+		}
+
+		.form-label {
+			font-size: 12px;
+			color: darkslategray;
+			margin-bottom: 1px;
+			font-weight: bold;
+		}
+	}
+
+	&--combatants {
+		margin-left: 20px;
+		flex-grow: 1;
+		display: flex;
+    	flex-direction: column;
+
+		.combatant-adder {
+			display: flex;
+			flex-direction: column;
+
+			.combatant-list {
+				height: 100%;
+				background-color: #f7f7f7;
+				border: 1px solid #959595;
+				width: 380px;
+				border-radius: 6px;
+				padding: 10px;
+			}
+		}
+
+		.card-list {
+			.card-row {
+				display: flex;
+				align-items: center;
+			}
+
+			.character-card {
+				margin-top: 10px;
+				flex-grow: 1;
+			}
+
+			.form-button {
+				margin-left: 10px;
+			}
+		}
+
+		.combatant-groups {
+			margin-left: 20px;
+			border-radius: 6px;
+			border: 1px solid #959595;
+			background-color: #f7f7f7;
+			padding: 10px;
+			flex-grow: 1;
+		}
+	}
+}
+
+.search-input {
+	position: relative;
+	display: inline-flex;
+	width: 100%;
+
+	input {
+		padding-right: 28px;
+	}
+
+	.search-icon {
+		position: absolute;
+		right: 0;
+		position: absolute;
+		filter: invert(60%) sepia(0%) saturate(500%) hue-rotate(0deg);
+		width: 17px;
+		top: 0;
+		bottom: 0;
+		height: 100%;
+		right: 6px;
+	}
+}
+
+.tab-group {
+	margin-left: 4px;
+
+	.tab {
+		text-transform: uppercase;
+		font-family: monospace;
+		border: 1px solid #b1b1b1;
+		border-bottom: none;
+		padding: 5px 15px;
+		font-size: 15px;
+		background: #f9f9f9;
+		cursor: pointer;
+		border-right: none;
+		color: #343434;
+
+		&:hover {
+			background: #f1f1f1;
+		}
+
+		&:first-of-type {
+			border-top-left-radius: 4px;
+		}
+
+		&:last-of-type {
+			border-right: 1px solid #b1b1b1;
+			border-top-right-radius: 4px;
+		}
+
+		&.active {
+			background: #f1f1f1;
+			color: black;
+			padding-top: 7px;
+			border-right: 1px solid;
+			border-color: #858585;
+			border-bottom-color: #b1b1b1;
+			border-top-left-radius: 4px;
+			border-top-right-radius: 4px;
+
+			+.tab {
+				border-left: none;
+			}
+		}
+	}
+}
