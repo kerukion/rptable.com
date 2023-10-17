@@ -22,24 +22,24 @@ export const CreatureCard = <T extends core.Creature>({
     const steppedGradient = (w: number) => pickHex([229, 94, 21], [139, 63, 159], w);
 
     return (
-        <div className="creature-card">
-            <img className="creature-card--img" src={creature.imageUrl} />
-            <div className="creature-card--hp">
-                <span className="num">{creature.maxHP}</span>
-                <span className="text">hp</span>
+        <div className='creature-card'>
+            <img className='creature-card--img' src={creature.imageUrl} />
+            <div className='creature-card--hp'>
+                <span className='num'>{creature.maxHP}</span>
+                <span className='text'>hp</span>
             </div>
-            <div className="creature-card--defense">
-                <img className='shield-icon' src={'/assets/icons/shield.svg'} alt="" />
-                <span className="text">{creature.defense}</span>
+            <div className='creature-card--defense'>
+                <img className='shield-icon' src={'/assets/icons/shield.svg'} alt='' />
+                <span className='text'>{creature.defense}</span>
             </div>
-            <div className="creature-card--ids">
-                <h1 className="creature-card--name">{creature.name}</h1>
-                <h2 className="creature-card--subtitle">
+            <div className='creature-card--ids'>
+                <h1 className='creature-card--name'>{creature.name}</h1>
+                <h2 className='creature-card--subtitle'>
                     {creature.classLevels?.map(cl => `${cl.level} ${cl.className}`).join(' / ')}
                 </h2>
                 <div>
                     {creature.maxSpellSlots.map((ss, i) => (
-                        <span key={i} style={`background: ${steppedGradient(i / 8)}`} className="creature-card--spells">
+                        <span key={i} style={`background: ${steppedGradient(i / 8)}`} className='creature-card--spells'>
                             {ss}
                         </span>
                     ))}

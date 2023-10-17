@@ -11,16 +11,16 @@ export const Login: FunctionalComponent = () => {
     const { mutateAsync: handleLogin } = useLoginMutation(queryClient);
 
     return (
-        <div className="login">
-            <div className="login--card">
-                <div className="login--title-bar">
+        <div className='login'>
+            <div className='login--card'>
+                <div className='login--title-bar'>
                     <h2>Login to rptable.com</h2>
                 </div>
-                <div className="login--body">
+                <div className='login--body'>
                     <GoogleLogin
                         clientId={GOOGLE_CLIENT_ID}
-                        className="google-login-button"
-                        buttonText="Log in with Google"
+                        className='google-login-button'
+                        buttonText='Log in with Google'
                         onSuccess={handleLogin}
                         onFailure={handleLogin}
                         cookiePolicy={'single_host_origin'}

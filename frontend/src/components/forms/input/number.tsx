@@ -29,7 +29,7 @@ export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ v
                 'form-input--elastic': size === 'elastic',
                 'form-input--error': isError && isTouched,
             })}`}
-            type="text"
+            type='text'
             value={value}
             ref={inputEl}
             onChange={handleChange}

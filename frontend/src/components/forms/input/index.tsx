@@ -19,7 +19,7 @@ export const FormInput: FunctionalComponent<FormInputProps<string>> = ({ value, 
                 'form-input--elastic': size === 'elastic',
                 'form-input--error': isError && isTouched,
             })}`}
-            type="text"
+            type='text'
             value={value}
             ref={inputEl}
             onChange={handleChange}

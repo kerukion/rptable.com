@@ -17,7 +17,7 @@ export const Header: FunctionalComponent = () => {
 
         if (!user) {
            return (
-                <Link href="/login">
+                <Link href='/login'>
                     Login
                 </Link>
             );
@@ -53,8 +53,8 @@ export const Header: FunctionalComponent = () => {
     }
 
     return (
-        <header className="header">
-            <h1 className="header--logo"> <Link href='/'> 🎲 RP Table </Link></h1>
+        <header className='header'>
+            <h1 className='header--logo'> <Link href='/'> 🎲 RP Table </Link></h1>
             <nav>
                 {campaignUI(campaignQuery.data, sessionQuery.data)}
                 {loginUI(userQuery.data, userQuery.isLoading)}

@@ -583,7 +583,7 @@ export const NewEncounter: FunctionalComponent = () => {
                 <h2 className='section-title'>Combatants</h2>
                 <div className='section-body'>
                     <div className='combatant-adder'>
-                        <div className="tab-group">
+                        <div className='tab-group'>
                             {Object.keys(core.CreatureType).map((k: core.CreatureType) => (
                                 <button key={k}
                                     className={`tab ${classNames({ active: combatantTab === k })}`}
@@ -593,12 +593,12 @@ export const NewEncounter: FunctionalComponent = () => {
                             ))}
                         </div>
                         <div className='combatant-tab-body'>
-                            <div className="list-scroll-wrapper">
+                            <div className='list-scroll-wrapper'>
                                 <div className='combatant-list'>
                                     <div className='search-bar'>
                                         <span className='search-input'>
                                             <FormInput
-                                                size="elastic"
+                                                size='elastic'
                                                 placeholder='Search...'
                                                 isError={false}
                                                 isDisabled={false}
@@ -607,17 +607,17 @@ export const NewEncounter: FunctionalComponent = () => {
                                                 onChange={(v) => { debouncedEventHandler(v || '') }}
                                                 onBlur={() => null}
                                             />
-                                            <img className='search-icon' src={'/assets/icons/search.svg'} alt="" />
+                                            <img className='search-icon' src={'/assets/icons/search.svg'} alt='' />
                                         </span>
                                     </div>
-                                    <div className="card-list">
+                                    <div className='card-list'>
                                         {campaignCreatures[combatantTab].filter((c) => filterCreatures(c)).map(c => (
-                                            <div key={c.id} className="card-row">
+                                            <div key={c.id} className='card-row'>
                                                 <CreatureCard creature={c} />
                                                 <FormButton
                                                     onClick={() => addInstance(c, combatantTab)}
-                                                    kind="action"
-                                                    size="small">
+                                                    kind='action'
+                                                    size='small'>
                                                     Add
                                                 </FormButton>
                                             </div>
@@ -630,7 +630,9 @@ export const NewEncounter: FunctionalComponent = () => {
                     <div className='combatant-grouper'>
                         <div className='grouper-scroll-wrapper'>
                             <div className='add-new'>
-                                <FormButton size="elastic" kind="action" onClick={() => {
+                                <FormButton size='elastic'
+                                    kind='action'
+                                    onClick={() => {
                                     setCreatureGroups([...creatureGroups, {
                                         instanceId: uuidv4(),
                                         name: 'New Group',
@@ -660,17 +662,17 @@ export const NewEncounter: FunctionalComponent = () => {
                                     }}
                                     onDelete={() => { deleteGroupList(cgl) }}>
                                     {cgl.instances.map(c => (
-                                        <div key={c.instanceId} className="card-row">
+                                        <div key={c.instanceId} className='card-row'>
                                             <CreatureCard creature={c} />
                                             <FormButton onClick={() => groupCreatureInstance(c.instanceId)}
-                                                size="small"
-                                                kind="action">
+                                                size='small'
+                                                kind='action'>
                                                 Move
                                             </FormButton>
                                             <FormButton onClick={() => removeInstance(c)}
-                                                size="fit"
-                                                kind="delete">
-                                                <img className='trash-icon' src={'/assets/icons/trash.svg'} alt="" />
+                                                size='fit'
+                                                kind='delete'>
+                                                <img className='trash-icon' src={'/assets/icons/trash.svg'} alt='' />
                                             </FormButton>
                                         </div>
                                     ))}

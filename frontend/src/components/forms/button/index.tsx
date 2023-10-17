@@ -32,7 +32,7 @@ export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = 
                 'form-button--delete': kind === 'delete',
                 'form-button--disabled': isDisabled,
             })}`}
-            type="button" >
+            type='button' >
             {props.children}
         </button>
     )

@@ -14,14 +14,14 @@ export const Campaigns: FunctionalComponent = () => {
     }
 
     return (
-        <div className="home">
-            <div className="home--title-bar">
+        <div className='home'>
+            <div className='home--title-bar'>
                 <h2>Choose your Campaign</h2>
-                <div className="home--new-campaign">
-                    <button className="create">
+                <div className='home--new-campaign'>
+                    <button className='create'>
                         + New Campaign
-                        <div className="home--campaign-slots">
-                            (1/2 slots used)
+                        <div className='home--campaign-slots'>
+                        (1/2 slots used)
                         </div>
                     </button>
                 </div>

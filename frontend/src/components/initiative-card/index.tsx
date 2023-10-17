@@ -8,7 +8,7 @@ interface InitiativeCardProps {
 
 export const InitiativeCard: FunctionalComponent<InitiativeCardProps> = ({ creature: character }) => {
     return (
-        <div className="campaign-card">
+        <div className='campaign-card'>
             {character.name}
             {/* <img className="campaign-card--cover" src={campaign.imageUrl} />
             <h1 className="campaign-card--title">{campaign.name}</h1>

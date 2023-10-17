@@ -121,12 +121,12 @@ export const Encounters: FunctionalComponent = () => {
     // must be logged in + can pick session/campaign in create if campaign and session aren't already selected
 
     return (
-        <div className="combat">
-            <div className="combat--title-bar">
+        <div className='combat'>
+            <div className='combat--title-bar'>
                 <h2>Encounter Tracker</h2>
             </div>
             <div>
-                <button className="create">+ New Encounter</button>
+                <button className='create'>+ New Encounter</button>
                 {/* <div>
                 left side: turn order "chain" w/ Initiative number (editable), icon, health-bar under. 
                     character icon hover: show more details on left side

@@ -8,13 +8,13 @@ interface CampaignCardProps {
 
 export const CampaignCard: FunctionalComponent<CampaignCardProps> = ({ campaign }) => {
     return (
-        <div className="campaign-card">
-            <img className="campaign-card--cover" src={campaign.imageUrl} />
-            <h1 className="campaign-card--title">{campaign.name}</h1>
-            <p className="campaign-card--description">
+        <div className='campaign-card'>
+            <img className='campaign-card--cover' src={campaign.imageUrl} />
+            <h1 className='campaign-card--title'>{campaign.name}</h1>
+            <p className='campaign-card--description'>
                 {campaign.description}
             </p>
-            <div className="campaign-card--actions">
+            <div className='campaign-card--actions'>
                 <button>
                     View
                 </button>

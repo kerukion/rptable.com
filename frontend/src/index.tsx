@@ -15,17 +15,17 @@ const MainRoutes: FunctionalComponent = () => {
 
     if (userQuery.error || !userQuery.data) {
         return (<Router>
-            <Route path="/login" component={Login} />
-            <RedirectTo to="/login" default />
+            <Route path='/login' component={Login} />
+            <RedirectTo to='/login' default />
         </Router>)
     }
 
     return (
         <Router>
-            <Route path="/campaigns" component={Campaigns} />
-            <Route path="/encounters/new" component={NewEncounter} /> 
+            <Route path='/campaigns' component={Campaigns} />
+            <Route path='/encounters/new' component={NewEncounter} /> 
             {/* <Route path="/profile/:user" component={Profile} /> */}
-            <RedirectTo to="/campaigns" default />
+            <RedirectTo to='/campaigns' default />
         </Router>
     );
 };
@@ -34,7 +34,7 @@ const App: FunctionalComponent = () => {
     const queryClient = new QueryClient({ defaultOptions: {queries: {refetchOnWindowFocus: false}}})
 
     return (
-        <div id="preact_root">
+        <div id='preact_root'>
             <QueryClientProvider client={queryClient}>
                 <Header />
                 <MainRoutes />

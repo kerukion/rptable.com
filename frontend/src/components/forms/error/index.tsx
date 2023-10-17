@@ -17,9 +17,9 @@ export const FormError: FunctionalComponent<FormErrorProps> = ({ error, mapping,
     })();
 
     if (!show || !wrapped || wrapped.every(e => !e.type)) {
-        return (<p className="form-error" />);
+        return (<p className='form-error' />);
     }
-    return (<p className="form-error">
+    return (<p className='form-error'>
         {wrapped.map(e => {
             return mapping[e.type] || e.message
         })}

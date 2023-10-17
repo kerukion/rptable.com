@@ -9,8 +9,8 @@ module.exports = {
     'preact',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended'
-
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -47,6 +47,10 @@ module.exports = {
         allowTemplateLiterals: true
       }
     ],
+    'jsx-quotes': ['error', 'prefer-single'],
+    'react/jsx-indent-props': ['error', 4],
+    'react/jsx-max-props-per-line': ['error', { maximum: 1, when: 'multiline' }],
+    'react/prop-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'no-useless-constructor': 'off',

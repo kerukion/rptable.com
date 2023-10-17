@@ -99,14 +99,14 @@ export const FormSelect = <T, K,>({
                 'form-select--open': open,
                 'form-select--disabled': shouldDisable,
             })}`}>
-            <div className="select-box" onClick={() => toggleSelect()}>
+            <div className='select-box' onClick={() => toggleSelect()}>
                 {renderCurrent()}
-                <span className="select-box--caret">▼</span>
+                <span className='select-box--caret'>▼</span>
             </div>
             {open && (
-                <div className="select-dropdown">
+                <div className='select-dropdown'>
                     {options?.map((o) => (
-                        <div key={mapToKey(o)} className="select-option" onClick={() => chooseOption(o)}>
+                        <div key={mapToKey(o)} className='select-option' onClick={() => chooseOption(o)}>
                             <span>{render(o)}</span>
                         </div>
                     ))}

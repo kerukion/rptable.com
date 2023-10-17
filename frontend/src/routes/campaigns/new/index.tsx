@@ -43,6 +43,6 @@ export const NewCampaign: FunctionalComponent = () => {
     // do top to bottom, form control + real mongoDB save on this.
 
     return (
-        <div className="" />
+        <div className='' />
     );
 };

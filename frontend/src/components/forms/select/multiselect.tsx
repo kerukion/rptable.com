@@ -149,9 +149,10 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
             </div>
             <div className='select-preview'>
                 {sortedOptions.filter(o => selected.has(mapToKey(o))).map(o => (
-                    <div key={mapToKey(o)} onClick={() => toggleOption(o)}
+                    <div key={mapToKey(o)}
+                        onClick={() => toggleOption(o)}
                         className='select-option select-option--preview select-option--chosen'>
-                        <input type="checkbox" checked={true} />
+                        <input type='checkbox' checked={true} />
                         <span>{render(o)}</span>
                     </div>
                 ))}
@@ -160,11 +161,12 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
                 <div className='select-dropdown'>
                     <div className='scroll-wrapper'>
                         {sortedOptions.map(o => (
-                            <div key={mapToKey(o)} onClick={() => toggleOption(o)}
+                            <div key={mapToKey(o)}
+                                onClick={() => toggleOption(o)}
                                 className={`select-option ${classNames({
                                     'select-option--chosen': selected.has(mapToKey(o))
                                 })}`}>
-                                <input type="checkbox" checked={selected.has(mapToKey(o))} />
+                                <input type='checkbox' checked={selected.has(mapToKey(o))} />
                                 <span>{render(o)}</span>
                             </div>
                         ))}

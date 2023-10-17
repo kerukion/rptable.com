@@ -1,8 +1,8 @@
 import './style.scss';
 import classNames from 'classnames';
 import { FunctionalComponent, h } from 'preact';
-import {  useMemo, useRef, useState } from 'preact/hooks';
-import { ColorResult,GithubPicker } from 'react-color';
+import { useMemo, useRef, useState } from 'preact/hooks';
+import { ColorResult, GithubPicker } from 'react-color';
 import { core } from '~core';
 import { FormInput } from '..';
 
@@ -63,48 +63,56 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
             {!editing && (
                 <div onClick={onClick} className={`group-card ${classNames({ 'group-card--active': active })}`}>
                     <span className='group-card--color' style={`background-color: ${group.color}`} />
-                    <button className='group-card--toggle' onClick={(e) => {
-                        e.stopPropagation();
-                        setOpen(!open)
-                    }}>
+                    <button className='group-card--toggle'
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setOpen(!open)
+                        }}>
                         <img className='arrow-icon' src={'/assets/icons/chevron-down.svg'} alt='' />
                     </button>
                     <h1 className='group-card--name'>{group.name}</h1>
-                    {editable && (<button className="group-card--edit" onClick={(e) => {
-                        e.stopPropagation()
-                        toggleEdit(true)
-                    }}>
-                        <img className='pencil-icon' src={'/assets/icons/pencil.svg'} alt='' />
-                    </button>)}
-                    {deletable && (<button className="group-card--delete" onClick={(e) => {
-                        e.stopPropagation()
-                        onDelete()
-                    }}>
-                        <img className='close-icon' src={'/assets/icons/close.svg'} alt='' />
-                    </button>)}
+                    {editable && (
+                        <button className='group-card--edit'
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                toggleEdit(true)
+                            }}>
+                            <img className='pencil-icon' src={'/assets/icons/pencil.svg'} alt='' />
+                        </button>
+                    )}
+                    {deletable && (
+                        <button className='group-card--delete'
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                onDelete()
+                            }}>
+                            <img className='close-icon' src={'/assets/icons/close.svg'} alt='' />
+                        </button>
+                    )}
                 </div>
             )}
             {editing && (
                 <div className={`group-card group-card--editing ${classNames({ 'group-card--active': active })}`}>
                     <div className='group-card--editing-color'>
                         <span className='group-card--color' style={`background-color: ${recolor}`} onClick={() => toggleColorPicker(!showColorPicker)}>
-                            <button className="group-card--edit-color">
+                            <button className='group-card--edit-color'>
                                 <img className='color-icon' src={'/assets/icons/water.svg'} alt='' />
                             </button>
                         </span>
-                        {showColorPicker && 
-                        (<div 
-                            ref={ref} 
-                            className="group-card--color-picker">
-                            <GithubPicker width="112px" onChangeComplete={(color: ColorResult) => {
-                                toggleColorPicker(false);
-                                setRecolor(color.hex);
-                            }} />
-                        </div>)}
+                        {showColorPicker && (
+                            <div ref={ref}
+                                className='group-card--color-picker'>
+                                <GithubPicker width='112px'
+                                    onChangeComplete={(color: ColorResult) => {
+                                        toggleColorPicker(false);
+                                        setRecolor(color.hex);
+                                    }} />
+                            </div>
+                        )}
                     </div>
                     <div className='group-card--edit-name'>
                         <FormInput
-                            size="elastic"
+                            size='elastic'
                             isError={false}
                             isDisabled={false}
                             isTouched={false}
@@ -113,11 +121,12 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                             onBlur={() => null}
                         />
                     </div>
-                    <button className="group-card--done" onClick={(e) => {
-                        e.stopPropagation()
-                        toggleEdit(false)
-                        onEdit({...group, name: rename, color: recolor})
-                    }}>
+                    <button className='group-card--done'
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            toggleEdit(false)
+                            onEdit({ ...group, name: rename, color: recolor })
+                        }}>
                         <img className='checkmark-icon' src={'/assets/icons/checkmark.svg'} alt='' />
                     </button>
                 </div>
