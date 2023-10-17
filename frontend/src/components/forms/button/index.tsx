@@ -8,8 +8,8 @@ export type FormButtonProps = FormProps
     & Pick<React.DOMAttributes<HTMLButtonElement>, 'onClick'>
     & {
     isDisabled?: boolean;
-    size?: 'small' | 'medium' | 'large' | 'elastic';
-    kind?: 'action';
+    size?: 'fit' | 'small' | 'medium' | 'large' | 'elastic';
+    kind?: 'action' | 'delete';
 }
 
 export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = false, size, kind, ...props }) => {
@@ -23,11 +23,13 @@ export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = 
                 props.onClick && props.onClick(e as any)
             }}
             className={`form-button ${classNames({
+                'form-button--fit': size === 'fit',
                 'form-button--small': size === 'small',
                 'form-button--medium': size === 'medium',
                 'form-button--large': size === 'large',
                 'form-button--elastic': size === 'elastic',
                 'form-button--action': kind === 'action',
+                'form-button--delete': kind === 'delete',
                 'form-button--disabled': isDisabled,
             })}`}
             type="button" >

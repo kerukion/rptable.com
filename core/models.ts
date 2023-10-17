@@ -43,6 +43,7 @@ export interface Encounter extends EncounterCore {
     // creatures: Creature[];
     creatureGroups: CreatureGroup[]; 
     currentTurn: CreatureInstance['instanceId'];
+    instanceMapping: InstanceCreatureMap;
     initiativeMapping: Record<CreatureInstance['instanceId'], number>; // initiative order is derived from this object, inverted
     conditionMapping: Record<CreatureInstance['instanceId'], ConditionInstance[]>;
     creatureGroupMapping: Record<CreatureInstance['instanceId'], CreatureGroup['instanceId']>;
@@ -52,15 +53,22 @@ export interface Encounter extends EncounterCore {
     inactiveInstanceIds: CreatureInstance['instanceId'][];
 }
 
+export interface InstanceCreatureMap {
+    [enums.CreatureType.PLAYER]: Record<CreatureInstance['instanceId'], PlayerInstance>;
+    [enums.CreatureType.CHARACTER]: Record<CreatureInstance['instanceId'], CreatureInstance>;
+    [enums.CreatureType.CREATURE]: Record<CreatureInstance['instanceId'], CreatureInstance>;
+}
+
+export interface CampaignCreatureMap {
+    [enums.CreatureType.PLAYER]: Player[];
+    [enums.CreatureType.CHARACTER]: Creature[];
+    [enums.CreatureType.CREATURE]: Creature[];
+}
+
 export interface EncounterLog {
     id: string;
     encounterId: string;
     deltas: EncounterDelta[]; // ordered list of diffs
-}
-
-export interface EncounterInstances {
-    instanceId: string;
-    instanceType: enums.CreatureInstanceType  ;
 }
 
 // encounterLog: EncounterDelta[];
@@ -115,12 +123,10 @@ export interface Creature {
     name: string;
     imageUrl: string;
     maxSpellSlots: number[];
+    classLevels: ClassLevel[];
     description: string;
     statBlock: string;
-}
-
-export interface Character extends Creature {
-    classLevels: ClassLevel[];
+    unique: boolean;
 }
 
 export interface ClassLevel {
@@ -128,11 +134,12 @@ export interface ClassLevel {
     class: enums.Class;
     className: string; // if Other
 }
-export interface PlayerCharacter extends Character {
+export interface Player extends Creature {
     playerId: string;
 }
 
 export interface CreatureInstanceMetaData {
+    type: enums.CreatureType;
     instanceId: string;
     currentHP: number;
     tempHP: number;
@@ -141,8 +148,7 @@ export interface CreatureInstanceMetaData {
 }
 
 export type CreatureInstance = Creature & CreatureInstanceMetaData;
-export type CharacterInstance = Character & CreatureInstanceMetaData;
-export type PlayerCharacterInstance = PlayerCharacter & CreatureInstanceMetaData;
+export type PlayerInstance = Player & CreatureInstanceMetaData;
 
 // we ONLY store "*-Instance"s in an Encounter,
 // otherwise a character's Level, spell slots etc etc would be wrong looking back at the Encounter later

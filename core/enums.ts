@@ -49,7 +49,7 @@ export enum Condition {
     OTHER
 }
 
-export enum CreatureInstanceType {
+export enum CreatureType {
     PLAYER = 'PLAYER',
     CHARACTER = 'CHARACTER',
     CREATURE = 'CREATURE'

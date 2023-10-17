@@ -3,10 +3,10 @@ import { core } from '~core';
 import './style.scss';
 
 interface InitiativeCardProps {
-    character: core.Character;
+    creature: core.Creature;
 }
 
-export const InitiativeCard: FunctionalComponent<InitiativeCardProps> = ({ character }) => {
+export const InitiativeCard: FunctionalComponent<InitiativeCardProps> = ({ creature: character }) => {
     return (
         <div className="campaign-card">
             {character.name}

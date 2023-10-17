@@ -1,4 +1,4 @@
-.character-card {
+.creature-card {
     position: relative;
     border: 1px solid darkgrey;
     display: flex;
@@ -6,6 +6,7 @@
     background: #efe8df;
     padding: 5px;
     border-radius: 6px;
+    width: 300px;
 
     &--img {
         height: 50px;
@@ -25,6 +26,10 @@
         font-weight: 500;
         color: black;
         margin: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 190px;
     }
 
     &--subtitle {
@@ -50,7 +55,7 @@
     &--defense {
         position: absolute;
         bottom: 1px;
-        right: 6px;
+        right: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,15 +63,15 @@
 
         .shield-icon {
             height: 35px;
-            filter: invert(20%) sepia(0%) saturate(500%) hue-rotate(
-        0deg);
+            filter: invert(20%) sepia(0%) saturate(500%) hue-rotate(0deg);
+            transform: scaleX(0.8);
         }
 
         .text {
             position: absolute;
             color: white;
             font-weight: bold;
-            padding-bottom: 10px;
+            padding-bottom: 6px;
         }
     }
 
