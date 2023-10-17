@@ -1,14 +1,16 @@
 import './style.scss';
-import { CampaignList } from '~frontend/components';
-import { core } from '~core';
 import { FunctionalComponent, h } from 'preact';
+import { core } from '~core';
+import { CampaignList } from '~frontend/components';
 
-export const Home: FunctionalComponent = () => {
+export * from './new';
+export * from './id';
+export const Campaigns: FunctionalComponent = () => {
     const mockCampaign: core.Campaign = {
         id: '1',
-        name: "The Rival Gods",
-        description: "The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.",
-        imageUrl: "https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5"
+        name: 'The Rival Gods',
+        description: 'The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.',
+        imageUrl: 'https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5'
     }
 
     return (

@@ -1,6 +1,6 @@
+import './style.scss';
 import { FunctionalComponent, h } from 'preact';
 import { core } from '~core';
-import './style.scss';
 
 interface InitiativeCardProps {
     creature: core.Creature;

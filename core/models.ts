@@ -1,5 +1,5 @@
-import { Delta } from "jsondiffpatch";
-import { db } from "~db";
+import { Delta } from 'jsondiffpatch';
+import { db } from '~db';
 import * as enums from './enums';
 
 export interface Campaign {

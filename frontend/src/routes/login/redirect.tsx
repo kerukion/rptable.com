@@ -2,11 +2,11 @@ import { Component } from 'preact';
 import { route } from 'preact-router';
 
 export class RedirectTo extends Component<{to: string}> {
-  componentWillMount() {
+  componentWillMount(): void {
     route(this.props.to, true);
   }
 
-  render() {
+  render(): JSX.Element | null {
     return null;
   }
 }

@@ -31,17 +31,17 @@ services:
     ports:
       - '8000:8000'
   
-  webapp:
-    volumes:
-      - ./:/usr/src/app
-      - node_modules:/usr/src/app/node_modules/:ro
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    depends_on:
-      - server
-    ports:
-      - '8080:8080'
+  # webapp:
+  #   volumes:
+  #     - ./:/usr/src/app
+  #     - node_modules:/usr/src/app/node_modules/:ro
+  #   build:
+  #     context: .
+  #     dockerfile: frontend/Dockerfile
+  #   depends_on:
+  #     - server
+  #   ports:
+  #     - '8080:8080'
 
 volumes:
   node_modules:

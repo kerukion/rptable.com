@@ -1,31 +1,31 @@
+import './style.scss';
+import classNames from 'classnames';
 import { FunctionalComponent, h } from 'preact';
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
-import classNames from 'classnames';
-import './style.scss';
 import { FormProps } from '../form-props';
 
 type FormSelectProps<T, K> = FormProps & {
     mapToKey?: (t: T) => K;
     value: K;
-    onBlur: () => void;
-    onChange: (t: K) => void;
+    onBlur?: () => void;
+    onChange?: (t: K) => void;
     options: T[] | undefined;
-    render: (t: T) => JSX.Element | string;
+    render?: (t: T) => JSX.Element | string;
     size?: 'medium' | 'large';
 }
 
 export * from './multiselect';
-export const FormSelect = <T extends unknown, K extends unknown>({
+export const FormSelect = <T, K,>({
     value,
-    onChange,
-    onBlur,
     isError,
     isTouched,
     isDisabled,
     options,
     size,
-    render,
-    mapToKey = (a) => a as K,
+    onChange = () => null,
+    onBlur = () => null,
+    render = (a) => a as unknown as string,
+    mapToKey = (a) => a as unknown as K,
 }: FormSelectProps<T, K>): ReturnType<FunctionalComponent<FormSelectProps<T, K>>> => {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -38,7 +38,7 @@ export const FormSelect = <T extends unknown, K extends unknown>({
                 onBlur();
             }
         }
-    }, [isDisabled, options, open, setOpen])
+    }, [open, setOpen, shouldDisable, onBlur])
 
     const toggleSelect = useCallback(() => {
         if (shouldDisable) {
@@ -51,7 +51,7 @@ export const FormSelect = <T extends unknown, K extends unknown>({
         } else {
             setOpen(true);
         }
-    }, [onBlur, open, setOpen]);
+    }, [onBlur, open, setOpen, shouldDisable]);
 
     const chooseOption = (option: T) => {
         if (shouldDisable) {
@@ -105,11 +105,11 @@ export const FormSelect = <T extends unknown, K extends unknown>({
             </div>
             {open && (
                 <div className="select-dropdown">
-                    {options?.map(o => {
-                        return (<div className="select-option" onClick={() => chooseOption(o)}>
+                    {options?.map((o) => (
+                        <div key={mapToKey(o)} className="select-option" onClick={() => chooseOption(o)}>
                             <span>{render(o)}</span>
-                        </div>);
-                    })}
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

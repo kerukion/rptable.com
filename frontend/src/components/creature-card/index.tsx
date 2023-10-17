@@ -1,6 +1,6 @@
+import './style.scss';
 import { FunctionalComponent, h } from 'preact';
 import { core } from '~core';
-import './style.scss';
 
 interface CreatureCardProps<T extends core.Creature> {
     creature: T;
@@ -38,9 +38,11 @@ export const CreatureCard = <T extends core.Creature>({
                     {creature.classLevels?.map(cl => `${cl.level} ${cl.className}`).join(' / ')}
                 </h2>
                 <div>
-                    {creature.maxSpellSlots.map((ss, i) => {
-                        return (<span style={`background: ${steppedGradient(i / 8)}`} className="creature-card--spells">{ss}</span>)
-                    })}
+                    {creature.maxSpellSlots.map((ss, i) => (
+                        <span key={i} style={`background: ${steppedGradient(i / 8)}`} className="creature-card--spells">
+                            {ss}
+                        </span>
+                    ))}
                 </div>
             </div>
         </div>

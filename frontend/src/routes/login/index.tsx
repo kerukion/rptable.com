@@ -1,8 +1,8 @@
 import './style.scss';
 import { FunctionalComponent, h } from 'preact';
 import { GoogleLogin } from 'react-google-login';
-import { useLoginMutation } from '~frontend/queries';
 import { useQueryClient } from 'react-query';
+import { useLoginMutation } from '~frontend/queries';
 
 export * from './redirect'
 export const Login: FunctionalComponent = () => {

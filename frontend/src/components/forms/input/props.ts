@@ -1,4 +1,4 @@
-import { FormProps } from "../form-props";
+import { FormProps } from '../form-props';
 
 export type FormInputProps<T> = FormProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Omit<React.HTMLAttributes<HTMLInputElement>, 'placeholder'> | 'value' | 'size'> & {
     value: T;

@@ -1,14 +1,14 @@
-import 'reflect-metadata';
 import './controllers';
-import { MongoDbService, AuthService, UserService } from './services';
-import { Container } from 'inversify';
-import { IDbService, IAuthService, IUserService } from './interfaces';
-import { InversifyExpressServer } from 'inversify-express-utils';
-import { TOKENS } from './tokens';
+import 'reflect-metadata';
 import cookies from 'cookie-parser';
 import cors from 'cors';
 import express, { json, urlencoded } from 'express';
+import { Container } from 'inversify';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import { core } from '~core';
+import { IAuthService, IDbService, IUserService } from './interfaces';
+import { AuthService, MongoDbService, UserService } from './services';
+import { TOKENS } from './tokens';
 
 const IOC = new Container();
 IOC.bind<IDbService>(TOKENS.DbService).to(MongoDbService).inSingletonScope();

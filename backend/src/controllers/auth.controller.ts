@@ -1,26 +1,25 @@
-import express from "express";
-import { interfaces, controller, httpPost, httpGet, } from "inversify-express-utils";
-import { inject } from "inversify";
-import { IAuthService } from "~backend/interfaces";
-import { TOKENS } from "~backend/tokens";
-import { db } from "~db";
+import express from 'express';
+import { inject } from 'inversify';
+import { controller, httpGet,httpPost, interfaces,  } from 'inversify-express-utils';
+import { IAuthService } from '~backend/interfaces';
 import { routes } from '~backend/routes';
+import { TOKENS } from '~backend/tokens';
+import { db } from '~db';
 
 @controller('')
 export class AuthController implements interfaces.Controller {
 
     constructor(@inject(TOKENS.AuthService) private authService: IAuthService) { }
 
-    @httpGet(routes["/currentuser"])
-    // eslint-disable-next-line no-unused-vars
-    private async currentUser(req: express.Request): Promise<db.user.Schema | undefined> {
+    @httpGet(routes['/currentuser'])
+    public async currentUser(req: express.Request): Promise<db.user.Schema | undefined> {
         const user = await this.authService.currentUser(req);
         return user;
     }
+    
 
-    @httpPost(routes["/api/v1/auth/google"])
-    // eslint-disable-next-line no-unused-vars
-    private async googleOAuth(req: express.Request, res: express.Response): Promise<db.user.Schema | undefined> {
+    @httpPost(routes['/api/v1/auth/google'])
+    public async googleOAuth(req: express.Request, res: express.Response): Promise<db.user.Schema | undefined> {
         const user = await this.authService.googleOAuth(req, res);
         res.status(201)
         return user;

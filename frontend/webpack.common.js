@@ -15,11 +15,11 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            "react": "preact/compat",
-            "react-dom": "preact/compat",
-            "~db": path.resolve('db'),
-            "~core": path.resolve('core'),
-            "~frontend": path.resolve('frontend/src'),
+            react: 'preact/compat',
+            'react-dom': 'preact/compat',
+            '~db': path.resolve('db'),
+            '~core': path.resolve('core'),
+            '~frontend': path.resolve('frontend/src'),
         }
     },
     module: {

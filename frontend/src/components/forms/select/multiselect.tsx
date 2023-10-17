@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FunctionalComponent, h } from 'preact';
-import { useState, useRef, useEffect, useCallback } from 'preact/hooks';
+import { useCallback,useEffect, useRef, useState } from 'preact/hooks';
 import { FormProps } from '../form-props';
 
 type FormMultiSelectProps<T, K> = FormProps & {
@@ -13,18 +13,20 @@ type FormMultiSelectProps<T, K> = FormProps & {
     size?: 'medium' | 'large';
 }
 
-export const FormMultiSelect = <T extends unknown, K extends unknown>({
-    value,
-    onChange,
-    onBlur,
-    isError,
-    isTouched,
-    isDisabled,
-    options,
-    size,
-    render,
-    mapToKey = (a) => a as K,
-}: FormMultiSelectProps<T, K>): ReturnType<FunctionalComponent<FormMultiSelectProps<T, K>>> => {
+export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): ReturnType<FunctionalComponent<FormMultiSelectProps<T, K>>> => {
+    const {
+        value,
+        onChange,
+        onBlur,
+        isError,
+        isTouched,
+        isDisabled,
+        options,
+        size,
+        render,
+        mapToKey = (a) => a as unknown as K,
+    } = props;
+    
     const [open, setOpen] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -42,7 +44,7 @@ export const FormMultiSelect = <T extends unknown, K extends unknown>({
                 onBlur();
             }
         }
-    }, [isDisabled, sortedOptions, previewOpen, setPreviewOpen, open, setOpen])
+    }, [previewOpen, setPreviewOpen, open, setOpen, onBlur, shouldDisable])
 
     useEffect(() => {
         const sorted = [...(options || [])].sort((o1, o2) => {
@@ -55,7 +57,8 @@ export const FormMultiSelect = <T extends unknown, K extends unknown>({
             return 0;
         });
         setSortedOptions(sorted);
-    }, [setSortedOptions, open])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setSortedOptions, open]);
 
     const toggleSelect = useCallback(() => {
         if (shouldDisable) {
@@ -69,7 +72,7 @@ export const FormMultiSelect = <T extends unknown, K extends unknown>({
         } else {
             setOpen(true);
         }
-    }, [onBlur, open, setOpen, setPreviewOpen]);
+    }, [onBlur, open, setOpen, setPreviewOpen, shouldDisable]);
 
     const toggleOption = (option: T) => {
         if (shouldDisable) {
@@ -80,7 +83,7 @@ export const FormMultiSelect = <T extends unknown, K extends unknown>({
             setPreviewOpen(true);
         }
         const newSelected = (() => {
-            let set = new Set(selected);
+            const set = new Set(selected);
             if (set.has(mapToKey(option))) {
                 set.delete(mapToKey(option));
             } else {
@@ -145,26 +148,26 @@ export const FormMultiSelect = <T extends unknown, K extends unknown>({
                 <span className='select-box--caret'>▼</span>
             </div>
             <div className='select-preview'>
-                {sortedOptions.filter(o => selected.has(mapToKey(o))).map(o => {
-                    return (<div onClick={() => toggleOption(o)}
+                {sortedOptions.filter(o => selected.has(mapToKey(o))).map(o => (
+                    <div key={mapToKey(o)} onClick={() => toggleOption(o)}
                         className='select-option select-option--preview select-option--chosen'>
                         <input type="checkbox" checked={true} />
                         <span>{render(o)}</span>
-                    </div>);
-                })}
+                    </div>
+                ))}
             </div>
             {open && (
                 <div className='select-dropdown'>
                     <div className='scroll-wrapper'>
-                        {sortedOptions.map(o => {
-                            return (<div onClick={() => toggleOption(o)}
+                        {sortedOptions.map(o => (
+                            <div key={mapToKey(o)} onClick={() => toggleOption(o)}
                                 className={`select-option ${classNames({
                                     'select-option--chosen': selected.has(mapToKey(o))
                                 })}`}>
                                 <input type="checkbox" checked={selected.has(mapToKey(o))} />
                                 <span>{render(o)}</span>
-                            </div>);
-                        })}
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}

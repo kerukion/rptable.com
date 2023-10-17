@@ -1,8 +1,8 @@
-import { inject, injectable } from "inversify";
-import { db } from "~db";
-import { IDbService, IUserService } from "~backend/interfaces";
-import { TOKENS } from "~backend/tokens";
-import { core } from "~core";
+import { inject, injectable } from 'inversify';
+import { IDbService, IUserService } from '~backend/interfaces';
+import { TOKENS } from '~backend/tokens';
+import { core } from '~core';
+import { db } from '~db';
 
 @injectable()
 export class UserService implements IUserService {

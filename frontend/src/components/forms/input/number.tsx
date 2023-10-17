@@ -1,9 +1,9 @@
 
 
-import classNames from "classnames";
-import { FunctionalComponent, h } from "preact";
-import { useRef } from "preact/hooks";
-import { FormInputProps } from "./props";
+import classNames from 'classnames';
+import { FunctionalComponent, h } from 'preact';
+import { useRef } from 'preact/hooks';
+import { FormInputProps } from './props';
 
 export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ value, onChange, onBlur, isError, isTouched, size, ...props }) => {
     const inputEl = useRef<HTMLInputElement>(null);

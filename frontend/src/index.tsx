@@ -1,10 +1,10 @@
 import './style.scss';
 import { FunctionalComponent, h, render } from 'preact';
-import { Header } from './components/header';
-import { Home, Login, Combat, RedirectTo, NewCombat } from './routes';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Router } from 'preact-router';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Header } from './components/header';
 import { useLoginQuery } from './queries';
+import { Campaigns, Login, NewEncounter,RedirectTo } from './routes';
 
 const MainRoutes: FunctionalComponent = () => {
     const userQuery = useLoginQuery();
@@ -16,19 +16,16 @@ const MainRoutes: FunctionalComponent = () => {
     if (userQuery.error || !userQuery.data) {
         return (<Router>
             <Route path="/login" component={Login} />
-            {/* delete this vv */}
-            <Route path="/combat" component={Combat} /> 
-            <Route path="/combat/new" component={NewCombat} /> 
             <RedirectTo to="/login" default />
         </Router>)
     }
 
     return (
         <Router>
-            <Route path="/" component={Home} />
-            <Route path="/combat" component={Combat} />
+            <Route path="/campaigns" component={Campaigns} />
+            <Route path="/encounters/new" component={NewEncounter} /> 
             {/* <Route path="/profile/:user" component={Profile} /> */}
-            <RedirectTo to="/" default />
+            <RedirectTo to="/campaigns" default />
         </Router>
     );
 };

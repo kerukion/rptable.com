@@ -1,9 +1,15 @@
 import './style.scss';
 import { FunctionalComponent, h } from 'preact';
-import * as patcher from 'jsondiffpatch';
-import { core } from '~core';
     
-export const Combat: FunctionalComponent = () => {
+export * from './new';
+export * from './id';
+export const Encounters: FunctionalComponent = () => {
+
+
+    // ⭐️ This Component should be for: LIST all combats
+    // + NEW combat button (just like campaign component)
+
+
 
     // don't track some things in Deltas:
         // name, locationName, locationId, sessionIds, campaignId

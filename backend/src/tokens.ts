@@ -1,7 +1,7 @@
 export const TOKENS = {
-    DbService: "DbService",
-    UserService: "UserService",
-    AuthService: "AuthService",
-    ChatroomService: "ChatroomService"
+    DbService: 'DbService',
+    UserService: 'UserService',
+    AuthService: 'AuthService',
+    ChatroomService: 'ChatroomService'
 };
 

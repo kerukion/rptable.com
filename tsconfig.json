@@ -61,6 +61,8 @@
         },
     },
     "exclude": [
-        "node_modules"
-    ]
+        "node_modules",
+        "public/"
+    ],
+    "include": [".eslintrc.js", "**/*.js", "**/*.ts", "**/*.tsx"]
 }

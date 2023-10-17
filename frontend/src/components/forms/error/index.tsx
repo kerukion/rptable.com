@@ -1,6 +1,6 @@
-import { h, FunctionalComponent } from "preact";
-import { FieldError } from "react-hook-form";
 import './style.scss';
+import { FunctionalComponent,h } from 'preact';
+import { FieldError } from 'react-hook-form';
 
 export interface FormErrorProps {
     error?: FieldError | FieldError[];
@@ -17,7 +17,7 @@ export const FormError: FunctionalComponent<FormErrorProps> = ({ error, mapping,
     })();
 
     if (!show || !wrapped || wrapped.every(e => !e.type)) {
-        return (<p className="form-error"></p>);
+        return (<p className="form-error" />);
     }
     return (<p className="form-error">
         {wrapped.map(e => {

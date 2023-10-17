@@ -13,9 +13,9 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
-            "~db": path.resolve('db'),
-            "~core": path.resolve('core'),
-            "~backend": path.resolve('backend/src'),
+            '~db': path.resolve('db'),
+            '~core': path.resolve('core'),
+            '~backend': path.resolve('backend/src'),
         }
     },
     module: {

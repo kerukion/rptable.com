@@ -1,7 +1,7 @@
 import './style.scss';
-import { FormProps } from '../form-props';
-import { FunctionalComponent, h } from 'preact';
 import classNames from 'classnames';
+import { FunctionalComponent, h } from 'preact';
+import { FormProps } from '../form-props';
 
 export type FormButtonProps = FormProps 
     & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof React.HTMLAttributes<HTMLButtonElement> | 'value'> 
@@ -20,7 +20,7 @@ export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = 
                 if(isDisabled) {
                     return;
                 }
-                props.onClick && props.onClick(e as any)
+                props.onClick && props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>)
             }}
             className={`form-button ${classNames({
                 'form-button--fit': size === 'fit',

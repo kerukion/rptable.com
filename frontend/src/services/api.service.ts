@@ -1,6 +1,6 @@
-import { GoogleLoginResponse } from "react-google-login";
-import { core } from "~core";
-import { db } from "~db";
+import { GoogleLoginResponse } from 'react-google-login';
+import { core } from '~core';
+import { db } from '~db';
 
 const routes = core.Routes.relativeTo('http://localhost:8000');
 

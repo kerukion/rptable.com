@@ -1,10 +1,10 @@
-import { BehaviorSubject, race, Subject } from 'rxjs';
-import { connect, Model } from 'mongoose';
-import { filter, skip, take } from 'rxjs/operators';
 import { injectable } from 'inversify';
+import { connect, Model } from 'mongoose';
+import { BehaviorSubject, firstValueFrom,race, Subject } from 'rxjs';
+import { filter, skip, take } from 'rxjs/operators';
 import { IDbService } from '~backend/interfaces';
-import { db } from '~db';
 import { core } from '~core';
+import { db } from '~db';
 
 interface ConnectionStatus {
     success: boolean;
@@ -13,7 +13,7 @@ interface ConnectionStatus {
 
 @injectable()
 export class MongoDbService implements IDbService {
-    private static DB_URL = "mongodb://mongodb:27017/rptablecom";
+    private static DB_URL = 'mongodb://mongodb:27017/rptablecom';
     private connectionStatus$ = new BehaviorSubject<ConnectionStatus>({ success: false, error: undefined });
     private connectionRequested$ = new Subject<void>();
 
@@ -43,10 +43,10 @@ export class MongoDbService implements IDbService {
 
     private async attemptDbConnection() {
         this.connectionRequested$.next();
-        const status = await race(
-            this.connectionStatus$.pipe(filter(ready => ready.success)),
-            this.connectionStatus$.pipe(skip(1), filter(ready => !!ready.error)),
-        ).pipe(take(1)).toPromise();
+        const status = await firstValueFrom(race(
+            this.connectionStatus$.pipe(filter((ready: ConnectionStatus) => ready.success)),
+            this.connectionStatus$.pipe(skip(1), filter((ready: ConnectionStatus) => !!ready.error)),
+        ));
 
         if (status.error) {
             throw new core.APIError(500, status.error);

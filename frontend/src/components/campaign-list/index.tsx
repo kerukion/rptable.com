@@ -1,7 +1,7 @@
+import './style.scss';
 import { FunctionalComponent, h } from 'preact';
 import { core } from '~core';
 import { CampaignCard } from '../campaign-card';
-import './style.scss';
 
 interface CampaignListProps {
     campaigns: core.Campaign[];
@@ -12,7 +12,7 @@ export const CampaignList: FunctionalComponent<CampaignListProps> = ({ campaigns
     return (
         <div className="campaign-list">
             {campaigns.map((c) => (
-                <div className="campaign-list--campaign">
+                <div key={c.id} className="campaign-list--campaign">
                     <CampaignCard campaign={c} />
                 </div>
             ))}

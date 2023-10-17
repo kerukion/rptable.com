@@ -1,7 +1,6 @@
 // import { db } from "~db";
 const localize = (url: string) => (path: string) => `${url}${path}`;
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const getRoutes = (baseUrl: string) => {
     const localizeUrl = localize(baseUrl);
     return {

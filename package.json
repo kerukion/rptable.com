@@ -8,32 +8,20 @@
     "npm": "^7"
   },
   "scripts": {
-    "start": "docker-compose down -v && docker-compose build && docker-compose up --remove-orphans",
+    "start:backend": "docker-compose down -v --remove-orphans && docker-compose build && docker-compose up --remove-orphans",
     "start:app": "webpack-dev-server --open --config frontend/webpack.dev.js",
     "start:server": "webpack --config backend/webpack.dev.js --watch",
     "compile:app": "webpack --config frontend/webpack.prod.js",
     "compile:server": "webpack --config backend/webpack.prod.js",
     "lint": "eslint . --fix",
-    "lint:ci": "eslint .",
-    "lint:app": "eslint frontend/src --fix",
-    "lint:backend": "eslint backend/src --fix",
     "test": "dotenv -e .test.env jest -- --forceExit",
     "initialize-db": "ts-node db/init/init.ts"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "preact",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "ignorePatterns": [
-      "public/"
-    ]
   },
   "dependencies": {
     "preact": "^10.3.1",
     "preact-render-to-string": "^5.1.4",
-    "preact-router": "^3.2.1"
+    "preact-router": "^3.2.1",
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
     "@hookform/resolvers": "^2.8.2",
@@ -47,8 +35,8 @@
     "@types/mongoose": "^5.11.97",
     "@types/react-color": "^3.0.6",
     "@types/uuid": "^8.3.1",
-    "@typescript-eslint/eslint-plugin": "^2.25.0",
-    "@typescript-eslint/parser": "^2.25.0",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
     "classnames": "^2.3.1",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^4.0.0",
@@ -59,8 +47,9 @@
     "debounce": "^1.2.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-preact-pure": "^3.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.32.0",
     "eslint-config-preact": "^1.2.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "express": "^4.17.1",
     "fast-json-patch": "^3.1.0",
     "file-loader": "^6.2.0",
@@ -79,10 +68,12 @@
     "react-query": "^3.28.0",
     "reflect-metadata": "^0.1.13",
     "resize-observer-polyfill": "^1.5.1",
+    "rxjs": "^7.4.0",
     "sass": "^1.43.3",
     "sass-loader": "^12.2.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
+    "ts-mockito": "^2.6.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4",
     "url-loader": "^4.1.1",

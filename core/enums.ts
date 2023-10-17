@@ -1,52 +1,52 @@
 
 export enum CreatureGroupAlignment {
-    PARTY,
-    ENEMY,
-    NEUTRAL,
-    OTHER
+    PARTY = 'PARTY',
+    ENEMY = 'ENEMY',
+    NEUTRAL = 'NEUTRAL',
+    OTHER = 'OTHER'
 }
 
 export enum Class {
-    BARBARIAN,
-    BARD,
-    CLERIC,
-    DRUID,
-    FIGHTER,
-    MONK,
-    PALADIN,
-    RANGER,
-    ROGUE,
-    SORCEROR,
-    WARLOCK,
-    WIZARD,
-    OTHER
+    BARBARIAN = 'BARBARIAN',
+    BARD = 'BARD',
+    CLERIC = 'CLERIC',
+    DRUID = 'DRUID',
+    FIGHTER = 'FIGHTER',
+    MONK = 'MONK',
+    PALADIN = 'PALADIN',
+    RANGER = 'RANGER',
+    ROGUE = 'ROGUE',
+    SORCEROR = 'SORCEROR',
+    WARLOCK = 'WARLOCK',
+    WIZARD = 'WIZARD',
+    OTHER = 'OTHER'
 }
 
 
 export enum ActionStates {
-    HELD,
-    USED,
-    UNUSED
+    HELD = 'HELD',
+    USED = 'USED',
+    UNUSED = 'UNUSED'
 }
 
 export enum Condition {
-    BLINDED,
-    CHARMED,
-    DEAFENED,
-    FRIGHTENED,
-    GRAPPLED,
-    INCAPACITATED,
-    INVISIBLE,
-    PARALYZED,
-    PETRIFIED,
-    POISONED,
-    PRONE,
-    RESTRAINED,
-    STUNNED,
-    SURPRISED,
-    UNCONSCIOUS,
-    EXHAUSTION,
-    OTHER
+    BLINDED = 'BLINDED',
+    CHARMED = 'CHARMED',
+    DEAFENED = 'DEAFENED',
+    FRIGHTENED = 'FRIGHTENED',
+    GRAPPLED = 'GRAPPLED',
+    INCAPACITATED = 'INCAPACITATED',
+    INVISIBLE = 'INVISIBLE',
+    PARALYZED = 'PARALYZED',
+    PETRIFIED = 'PETRIFIED',
+    POISONED = 'POISONED',
+    PRONE = 'PRONE',
+    RESTRAINED = 'RESTRAINED',
+    STUNNED = 'STUNNED',
+    SURPRISED = 'SURPRISED',
+    UNCONSCIOUS = 'UNCONSCIOUS',
+    EXHAUSTION = 'EXHAUSTION',
+    OTHER = 'OTHER'
 }
 
 export enum CreatureType {
@@ -56,8 +56,6 @@ export enum CreatureType {
 }
 
 export enum TurnPart {
-    START,
-    END,
+    START = 'START',
+    END = 'END',
 }
-
-// add rule for PREFER INITIALIZED ENUMS...

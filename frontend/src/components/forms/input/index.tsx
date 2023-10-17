@@ -1,7 +1,7 @@
+import './style.scss';
+import classNames from 'classnames';
 import { FunctionalComponent, h } from 'preact';
 import { useRef } from 'preact/hooks';
-import classNames from 'classnames';
-import './style.scss';
 import { FormInputProps } from './props';
 
 export * from './number'

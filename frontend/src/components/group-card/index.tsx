@@ -1,10 +1,10 @@
+import './style.scss';
 import classNames from 'classnames';
 import { FunctionalComponent, h } from 'preact';
-import { useCallback, useRef, useState } from 'preact/hooks';
+import {  useMemo, useRef, useState } from 'preact/hooks';
+import { ColorResult,GithubPicker } from 'react-color';
 import { core } from '~core';
 import { FormInput } from '..';
-import { GithubPicker, ColorResult } from 'react-color';
-import './style.scss';
 
 interface CreatureGroupProps {
     group: core.CreatureGroup;
@@ -39,27 +39,30 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
         setEditing(edit);
     }
 
-    const toggleColorPicker = (open: boolean) => {
-        if (open) {
-            document.body.addEventListener('mousedown', clickOut);
-        } else {
-            document.body.removeEventListener('mousedown', clickOut);
-        }
-        setShowColorPicker(open);
-    };
-
-    const clickOut = useCallback((evt: MouseEvent) => {
-        if (ref.current?.contains(evt.target as Node)) {
-            return;
-        }
-        toggleColorPicker(false);
-    }, [toggleColorPicker]);
+    const { toggleColorPicker } = useMemo(() => {
+        // useMemo because these functions are co-dependent
+        const clickOut = (evt: MouseEvent) => {
+            if (ref.current?.contains(evt.target as Node)) {
+                return;
+            }
+            toggleColorPicker(false);
+        };
+        const toggleColorPicker = (open: boolean) => {
+            if (open) {
+                document.body.addEventListener('mousedown', clickOut);
+            } else {
+                document.body.removeEventListener('mousedown', clickOut);
+            }
+            setShowColorPicker(open);
+        };
+        return { toggleColorPicker };
+    }, [setShowColorPicker, ref]);
 
     return (
         <div className='creature-group'>
             {!editing && (
                 <div onClick={onClick} className={`group-card ${classNames({ 'group-card--active': active })}`}>
-                    <span className='group-card--color' style={`background-color: ${group.color}`}></span>
+                    <span className='group-card--color' style={`background-color: ${group.color}`} />
                     <button className='group-card--toggle' onClick={(e) => {
                         e.stopPropagation();
                         setOpen(!open)
@@ -107,7 +110,7 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                             isTouched={false}
                             value={rename}
                             onChange={(v) => { setRename(v || '') }}
-                            onBlur={() => { }}
+                            onBlur={() => null}
                         />
                     </div>
                     <button className="group-card--done" onClick={(e) => {

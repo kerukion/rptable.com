@@ -1,9 +1,9 @@
+import './style.scss';
 import { FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
 import { core } from '~core';
 import { db } from '~db';
 import { useCampaignQuery, useLoginQuery, useSessionQuery } from '~frontend/queries';
-import './style.scss';
 
 export const Header: FunctionalComponent = () => {
     const userQuery = useLoginQuery();

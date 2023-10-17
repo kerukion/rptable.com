@@ -1,10 +1,10 @@
 import express from 'express';
+import { OAuth2Client } from 'google-auth-library'
 import { inject, injectable } from 'inversify';
-import { db } from '~db';
-import { core } from '~core';
 import { IAuthService, IDbService, IUserService } from '~backend/interfaces';
 import { TOKENS } from '~backend/tokens';
-import { OAuth2Client } from 'google-auth-library'
+import { core } from '~core';
+import { db } from '~db';
 import { UserService } from '.';
 const GOOGLE_OAUTH_CLIENT_ID = '270087464037-10kcjadihf5tbe78mir7rs3h25jn9rq4.apps.googleusercontent';
 const client = new OAuth2Client(GOOGLE_OAUTH_CLIENT_ID)

@@ -1,17 +1,17 @@
 import './style.scss';
-import { FunctionalComponent, h } from 'preact';
-import { core } from '~core';
-import { useController, useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CreatureCard, FormButton, FormError, FormInput, FormInputNumber, FormMultiSelect, FormSelect, GroupCard } from '~frontend/components';
-import { useMemo, useState } from 'preact/hooks';
 import classNames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 import debounce from 'debounce';
-import { InstanceCreatureMap } from '../../../../core/models';
+import { FunctionalComponent, h } from 'preact';
+import { useCallback, useMemo, useState } from 'preact/hooks';
+import { useController, useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
+import * as yup from 'yup';
+import { core } from '~core';
+import { CreatureCard, FormButton, FormError, FormInput, FormInputNumber, FormMultiSelect, FormSelect, GroupCard } from '~frontend/components';
+import { useCampaignQuery } from '~frontend/queries';
 
-export const NewCombat: FunctionalComponent = () => {
+export const NewEncounter: FunctionalComponent = () => {
     // const CHARACTER_GROUP_LIMIT = 10;
     // const CHARACTER_LIMIT = 40;
     // const CREATURE_LIMIT = 40;
@@ -28,19 +28,19 @@ export const NewCombat: FunctionalComponent = () => {
     // }
     // send the _FULL_ "instanced" players/characters/creatures w/ the APIRequest and store them directly as part of the encounter's data
 
-    // move default groups to a "constants" file
     // add "index" to CGL so they can be sorted while in edit mode? LATER
 
     console.log('top level render...')
 
-    const campaigns: core.Campaign[] = [{
-        id: '1',
-        name: 'The Rival Gods',
-        description: "The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.",
-        imageUrl: "https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5",
-    }];
-    const campaignIds = campaigns.map(c => c.id);
-    const sessions: core.Session[] = [
+    // 1. load '/' homepage
+    // 2. reactQuery => getCampaigns() and render Home page
+    // 3. pick a Campaign. set Global State: <campaignId>.
+    // 4. reactQuery => getCampaign(global.campaignID)
+    // 5. can now get campaign state anywhere, global.CampaignID anywhere.
+
+    // asserting that core.Campaign will never be undefined in this context
+    const { data: campaign } = useCampaignQuery() as { data: core.Campaign };
+    const sessions: core.Session[] = useMemo(() => [
         {
             id: '1',
             campaignId: '1',
@@ -57,10 +57,11 @@ export const NewCombat: FunctionalComponent = () => {
             id: '3',
             campaignId: '1',
             name: 'Enigmas',
-            number: 70
+            number: 69
         }
-    ];
-    const sessionIds = sessions.map(s => s.id);
+    ], []);
+    const sessionIds = useMemo(() => sessions.map(s => s.id), [sessions]);
+    const sortedSessions = useMemo(() => sessions.sort((s1, s2) => s2.number - s1.number), [sessions])
     const locations: core.Location[] = [
         {
             id: '1',
@@ -261,7 +262,6 @@ export const NewCombat: FunctionalComponent = () => {
 
     interface NewEncounterForm {
         name: string;
-        campaignId: core.Campaign['id'];
         sessionIds: core.Session['id'][];
         currentSessionId: core.Session['id'];
         locationIds: core.Location['id'][];
@@ -271,7 +271,6 @@ export const NewCombat: FunctionalComponent = () => {
 
     const newEncounterSchema: yup.SchemaOf<NewEncounterForm> = yup.object({
         name: yup.string().required(),
-        campaignId: yup.string().required().oneOf(campaignIds),
         sessionIds: yup.array().min(1).of(yup.string().required().oneOf(sessionIds)).required(),
         currentSessionId: yup.string().required().test(
             'oneOf',
@@ -292,9 +291,6 @@ export const NewCombat: FunctionalComponent = () => {
     });
 
     const errorMapping: { [key in keyof NewEncounterForm]: Record<string, string> } = {
-        campaignId: {
-            required: 'Field is required',
-        },
         sessionIds: {
             min: 'Field is required',
             required: 'Field is required',
@@ -325,10 +321,6 @@ export const NewCombat: FunctionalComponent = () => {
         resolver: yupResolver(newEncounterSchema),
     });
 
-    const campaignIdController = useController({
-        name: 'campaignId',
-        control
-    });
     const sessionIdsController = useController({
         name: 'sessionIds',
         control
@@ -357,42 +349,18 @@ export const NewCombat: FunctionalComponent = () => {
     const isSubmitting = false;
     const [combatantTab, setCombatantTab] = useState<core.CreatureType>(core.CreatureType.PLAYER);
     const [search, setSearch] = useState<string>('');
-    const updateSearch = (s: string) => setSearch(s);
+    const updateSearch = useCallback((s: string) => setSearch(s), [setSearch]);
     const debouncedEventHandler = useMemo(() => {
         return debounce(updateSearch, 300)
-    }, [setSearch]);
+    }, [updateSearch]);
 
     const [instanceMap, setInstanceMap] = useState<core.InstanceCreatureMap>({
         [core.CreatureType.PLAYER]: {},
         [core.CreatureType.CHARACTER]: {},
         [core.CreatureType.CREATURE]: {},
     });
-    const [creatureGroups, setCreatureGroups] = useState<core.CreatureGroup[]>([
-        {
-            instanceId: uuidv4(),
-            name: 'Party',
-            alignment: core.CreatureGroupAlignment.PARTY,
-            color: '#c1e1c5',
-        },
-        {
-            instanceId: uuidv4(),
-            name: 'Enemies',
-            alignment: core.CreatureGroupAlignment.ENEMY,
-            color: '#eb9694',
-        },
-        {
-            instanceId: uuidv4(),
-            name: 'Neutral',
-            alignment: core.CreatureGroupAlignment.NEUTRAL,
-            color: '#fef3bd',
-        }
-    ]);
-    const [unsetCreatureGroup] = useState<core.CreatureGroup>({
-        instanceId: uuidv4(),
-        name: 'Ungrouped',
-        alignment: core.CreatureGroupAlignment.NEUTRAL,
-        color: '#fef3bd',
-    });
+    const [creatureGroups, setCreatureGroups] = useState<core.CreatureGroup[]>(core.defaults.groups());
+    const [unsetCreatureGroup] = useState<core.CreatureGroup>(core.defaults.unsetGroup());
     const [creatureGroupMapping, setCreatureGroupMapping] = useState<core.Encounter['creatureGroupMapping']>({});
     const [activeCreatureGroupId, setActiveCreatureGroupId] = useState<core.CreatureGroup['instanceId']>(unsetCreatureGroup.instanceId);
     const getAllInstances = (instances: core.InstanceCreatureMap): core.CreatureInstance[] => Object
@@ -404,9 +372,9 @@ export const NewCombat: FunctionalComponent = () => {
         return getAllInstances(instanceMap).map((i) => i.id);
     }, [instanceMap]);
 
-    const getInstancesForGroup = (instances: core.InstanceCreatureMap, cgId: core.CreatureGroup['instanceId']): core.CreatureInstance[] => 
+    const getInstancesForGroup = (instances: core.InstanceCreatureMap, cgId: core.CreatureGroup['instanceId']): core.CreatureInstance[] =>
         getAllInstances(instances)
-        .filter(p => creatureGroupMapping[p.instanceId] === cgId)
+            .filter(p => creatureGroupMapping[p.instanceId] === cgId)
 
     const groupCreatureInstance = (ci: core.CreatureInstanceMetaData['instanceId']) => {
         if (creatureGroups.find(cg => cg.instanceId === activeCreatureGroupId) == undefined && activeCreatureGroupId !== unsetCreatureGroup.instanceId) {
@@ -441,11 +409,11 @@ export const NewCombat: FunctionalComponent = () => {
     };
 
     const deleteGroupList = (gl: GroupList) => {
-        let newCreatureGroupMapping = { ...creatureGroupMapping };
+        const newCreatureGroupMapping = { ...creatureGroupMapping };
         gl.instances.forEach((i) => delete newCreatureGroupMapping[i.instanceId]);
         setCreatureGroupMapping(newCreatureGroupMapping);
 
-        let newInstanceMap = { ...instanceMap };
+        const newInstanceMap = { ...instanceMap };
         gl.instances.forEach((i) => {
             delete newInstanceMap[i.type][i.instanceId];
         });
@@ -460,11 +428,11 @@ export const NewCombat: FunctionalComponent = () => {
     }
 
     const removeInstance = <T extends core.CreatureInstanceMetaData>(c: T) => {
-        let newInstanceTypeMap = { ...instanceMap[c.type] };
+        const newInstanceTypeMap = { ...instanceMap[c.type] };
         delete newInstanceTypeMap[c.instanceId];
         setInstanceMap({ ...instanceMap, [c.type]: newInstanceTypeMap });
 
-        let newCreatureGroupMapping = { ...creatureGroupMapping };
+        const newCreatureGroupMapping = { ...creatureGroupMapping };
         delete newCreatureGroupMapping[c.instanceId];
         setCreatureGroupMapping(newCreatureGroupMapping);
     };
@@ -478,36 +446,31 @@ export const NewCombat: FunctionalComponent = () => {
         return searchIncludes(c.name);
     }
 
-    return (<div className='new-combat'>
-        <div className='new-combat--header'>
+    return (<div className='new-encounter'>
+        <div className='new-encounter--header'>
             <h1>Create an encounter</h1>
         </div>
-        <div className='new-combat--body'>
-            <div className='new-combat--details'>
+        <div className='new-encounter--body'>
+            <div className='new-encounter--details'>
                 <h2 className='section-title'>Details</h2>
                 <div className='form-row'>
                     <span className='form-label'>Campaign</span>
                     <FormSelect
-                        options={campaigns}
-                        mapToKey={(c) => c.id}
-                        {...campaignIdController.field}
-                        isDisabled={isSubmitting}
-                        isError={!!errors.campaignId}
-                        isTouched={campaignIdController.fieldState.isTouched}
+                        options={[campaign.name]}
+                        value={campaign.name}
+                        isDisabled={true}
+                        isError={false}
+                        isTouched={false}
                         size='large'
-                        render={(option) => {
-                            return `${option.name}`
-                        }}
                     />
                     <FormError
-                        error={errors.campaignId}
-                        show={campaignIdController.fieldState.isTouched}
-                        mapping={errorMapping.campaignId} />
+                        show={false}
+                        mapping={{}} />
                 </div>
                 <div className='form-row'>
                     <span className='form-label'>Sessions</span>
                     <FormMultiSelect
-                        options={sessions}
+                        options={sortedSessions}
                         mapToKey={(s) => s.id}
                         {...sessionIdsController.field}
                         onChange={(o) => {
@@ -616,14 +579,18 @@ export const NewCombat: FunctionalComponent = () => {
                         mapping={errorMapping.currentRound} />
                 </div>
             </div>
-            <div className='new-combat--combatants'>
+            <div className='new-encounter--combatants'>
                 <h2 className='section-title'>Combatants</h2>
                 <div className='section-body'>
                     <div className='combatant-adder'>
                         <div className="tab-group">
-                            {Object.keys(core.CreatureType).map((k: core.CreatureType) => {
-                                return (<button className={`tab ${classNames({ 'active': combatantTab === k })}`} onClick={() => setCombatantTab(k)}>{core.CreatureType[k]}</button>)
-                            })}
+                            {Object.keys(core.CreatureType).map((k: core.CreatureType) => (
+                                <button key={k}
+                                    className={`tab ${classNames({ active: combatantTab === k })}`}
+                                    onClick={() => setCombatantTab(k)}>
+                                    {core.CreatureType[k]}
+                                </button>
+                            ))}
                         </div>
                         <div className='combatant-tab-body'>
                             <div className="list-scroll-wrapper">
@@ -638,23 +605,23 @@ export const NewCombat: FunctionalComponent = () => {
                                                 isTouched={false}
                                                 value={search}
                                                 onChange={(v) => { debouncedEventHandler(v || '') }}
-                                                onBlur={() => { }}
+                                                onBlur={() => null}
                                             />
                                             <img className='search-icon' src={'/assets/icons/search.svg'} alt="" />
                                         </span>
                                     </div>
                                     <div className="card-list">
-                                        {campaignCreatures[combatantTab].filter((c) => filterCreatures(c)).map(c =>
-                                        (<div className="card-row">
-                                            <CreatureCard creature={c} />
-                                            <FormButton
-                                                onClick={() => addInstance(c, combatantTab)}
-                                                kind="action"
-                                                size="small">
-                                                Add
-                                            </FormButton>
-                                        </div>)
-                                        )}
+                                        {campaignCreatures[combatantTab].filter((c) => filterCreatures(c)).map(c => (
+                                            <div key={c.id} className="card-row">
+                                                <CreatureCard creature={c} />
+                                                <FormButton
+                                                    onClick={() => addInstance(c, combatantTab)}
+                                                    kind="action"
+                                                    size="small">
+                                                    Add
+                                                </FormButton>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -676,6 +643,7 @@ export const NewCombat: FunctionalComponent = () => {
                             </div>
                             {groupLists.map((cgl) => (
                                 <GroupCard
+                                    key={cgl.instanceId}
                                     group={{ ...cgl }}
                                     deletable={cgl.instanceId !== unsetGroupList.instanceId}
                                     editable={cgl.instanceId !== unsetGroupList.instanceId}
@@ -692,7 +660,7 @@ export const NewCombat: FunctionalComponent = () => {
                                     }}
                                     onDelete={() => { deleteGroupList(cgl) }}>
                                     {cgl.instances.map(c => (
-                                        <div className="card-row">
+                                        <div key={c.instanceId} className="card-row">
                                             <CreatureCard creature={c} />
                                             <FormButton onClick={() => groupCreatureInstance(c.instanceId)}
                                                 size="small"
