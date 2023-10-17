@@ -1,0 +1,35 @@
+.login {
+	padding: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+
+	&--card {
+		background: white;
+		border: 1px solid #f1f1f1;
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border-radius: 6px;
+		height: 500px;
+		width: 500px;
+	}
+
+	&--title-bar {
+		display: flex;
+		align-items: flex-end;
+		margin-bottom: 20px;
+		h2 {
+			margin: 0;
+		}
+	}
+
+	.google-login-button {
+		height: 42px;
+	}
+}

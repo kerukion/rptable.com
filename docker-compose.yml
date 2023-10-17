@@ -1,0 +1,47 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:3.6.22-xenial
+    ports:
+      - "27017:27017"
+    volumes: 
+      - /data/db
+    environment:
+      - MONGO_INITDB_DATABASE=rptablecom
+
+  dependencies:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/
+
+  server:
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/:ro
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    depends_on:
+      - dependencies
+    ports:
+      - '8000:8000'
+  
+  webapp:
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/:ro
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      - server
+    ports:
+      - '8080:8080'
+
+volumes:
+  node_modules:
