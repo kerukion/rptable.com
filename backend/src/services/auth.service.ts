@@ -1,5 +1,5 @@
 import express from 'express';
-import { OAuth2Client } from 'google-auth-library'
+import { OAuth2Client } from 'google-auth-library';
 import { inject, injectable } from 'inversify';
 import { IAuthService, IDbService, IUserService } from '~backend/interfaces';
 import { TOKENS } from '~backend/tokens';
@@ -7,7 +7,7 @@ import { core } from '~core';
 import { db } from '~db';
 import { UserService } from '.';
 const GOOGLE_OAUTH_CLIENT_ID = '270087464037-10kcjadihf5tbe78mir7rs3h25jn9rq4.apps.googleusercontent';
-const client = new OAuth2Client(GOOGLE_OAUTH_CLIENT_ID)
+const client = new OAuth2Client(GOOGLE_OAUTH_CLIENT_ID);
 
 @injectable()
 export class AuthService implements IAuthService {
@@ -21,11 +21,11 @@ export class AuthService implements IAuthService {
     async currentUser(req: core.Request): Promise<db.user.Schema | undefined> {
         const userCookie = req.cookies[AuthService.COOKIE_NAME];
         if (!userCookie) {
-            throw new core.APIError(401, 'User is not logged in.')
+            throw new core.APIError(401, 'User is not logged in.');
         }
         const userData = await this.userService.getUserById(userCookie);
         if (!userData) {
-            throw new core.APIError(403, 'User does not exist.')
+            throw new core.APIError(403, 'User does not exist.');
         }
         return userData;
     }
@@ -34,7 +34,7 @@ export class AuthService implements IAuthService {
         const { token }  = req.body;
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.CLIENT_ID
+            audience: process.env.CLIENT_ID,
         });
         const payload = ticket.getPayload();    
         if (!payload) {
@@ -45,15 +45,15 @@ export class AuthService implements IAuthService {
         const user = await Users.findOne({ username: payload.email } as db.user.Schema);
 
         if (user) {
-            this.loginWithCookie(res, user._id)
+            this.loginWithCookie(res, user._id);
             return user;
         }
         
         const newUser = await Users.create({
             username: payload.email,
-            name: payload.name
+            name: payload.name,
         } as db.user.Schema);
-        this.loginWithCookie(res, newUser._id)
+        this.loginWithCookie(res, newUser._id);
 
         return UserService.documentToSchema(newUser);
     }
@@ -74,7 +74,7 @@ export class AuthService implements IAuthService {
     loginWithCookie(res: express.Response, userId: db.user.Schema['_id']): void {
         res.cookie(AuthService.COOKIE_NAME, userId, {
             expires: new Date(Date.now() + AuthService.MINUTES_60_IN_MS),
-            httpOnly: true
+            httpOnly: true,
         });
     }
 }

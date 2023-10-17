@@ -10,9 +10,9 @@ interface CampaignProps {
 
 export const Campaign: FunctionalComponent<CampaignProps> = (props) => {
     const dispatch = useDispatch();
-    dispatch(actions.campaign.set({ value: props.id }))
+    dispatch(actions.campaign.set({ value: props.id }));
     const { data: campaign, isLoading } = useCampaignQuery(props.id);
-    console.log(props)
+    console.log(props);
     return (
         <div>
             Viewing campaign: {props.id}

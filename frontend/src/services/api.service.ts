@@ -24,7 +24,7 @@ export class APIService {
             credentials: 'include',
             body: JSON.stringify(data as core.NewCampaignRequest),
         });
-        await APIService.throwIfError(res)
+        await APIService.throwIfError(res);
         return await res.json();
     }
 
@@ -32,9 +32,9 @@ export class APIService {
         const res = await fetch(routes['/users/:id/campaigns'](data.user_createdby), {
             method: 'GET',
             headers: new Headers({ 'content-type': 'application/json' }),
-            credentials: 'include'
+            credentials: 'include',
         });
-        await APIService.throwIfError(res)
+        await APIService.throwIfError(res);
         return await res.json();
     }
 
@@ -42,9 +42,9 @@ export class APIService {
         const res = await fetch(routes['/campaigns/:id'](data._id), {
             method: 'GET',
             headers: new Headers({ 'content-type': 'application/json' }),
-            credentials: 'include'
+            credentials: 'include',
         });
-        await APIService.throwIfError(res)
+        await APIService.throwIfError(res);
         return await res.json();
     }
 
@@ -55,7 +55,7 @@ export class APIService {
             credentials: 'include',
             body: JSON.stringify({ token: tokenId } as core.GoogleOAuthRequest),
         });
-        await APIService.throwIfError(res)
+        await APIService.throwIfError(res);
         return await res.json();
     }
 
@@ -63,7 +63,7 @@ export class APIService {
         const res = await fetch(routes['/currentuser'], {
             credentials: 'include',
         });
-        await APIService.throwIfError(res)
+        await APIService.throwIfError(res);
         return await res.json();
     }
 }

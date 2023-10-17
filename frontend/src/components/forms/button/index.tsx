@@ -20,7 +20,7 @@ export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = 
                 if(isDisabled) {
                     return;
                 }
-                props.onClick && props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>)
+                props.onClick && props.onClick(e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>);
             }}
             className={`form-button ${classNames({
                 'form-button--fit': size === 'fit',
@@ -35,5 +35,5 @@ export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = 
             type='button' >
             {props.children}
         </button>
-    )
+    );
 };

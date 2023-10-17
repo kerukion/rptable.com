@@ -13,10 +13,10 @@ const pickHex = (color1: number[], color2: number[], weight: number) => {
     Math.round(color1[1] * w1 + color2[1] * w2),
     Math.round(color1[2] * w1 + color2[2] * w2)];
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-}
+};
 
 export const CreatureCard = <T extends core.Creature>({
-    creature
+    creature,
 }: CreatureCardProps<T>): ReturnType<FunctionalComponent<CreatureCardProps<T>>> => {
 
     const steppedGradient = (w: number) => pickHex([229, 94, 21], [139, 63, 159], w);

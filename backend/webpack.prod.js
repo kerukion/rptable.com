@@ -11,8 +11,8 @@ module.exports = merge(common, {
                     keep_classnames: true, // node_modules/inversify-express-utils relies on class name for @controller() decorator
                 },
                 parallel: true,
-                sourceMap: true
-            })
-        ]
-    }
+                sourceMap: true,
+            }),
+        ],
+    },
 });

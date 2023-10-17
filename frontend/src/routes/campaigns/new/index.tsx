@@ -33,9 +33,9 @@ export const NewCampaign: FunctionalComponent = () => {
         },
         imageUrl: {
             required: 'Field is required',
-            validUrl: 'Failed to load image'
+            validUrl: 'Failed to load image',
         },
-    }
+    };
 
     const { control, trigger, formState: { errors, isValid }, getValues: formValues } = useForm<core.NewCampaignForm>({
         mode: 'all',
@@ -44,20 +44,20 @@ export const NewCampaign: FunctionalComponent = () => {
 
     const nameController = useController({
         name: 'name',
-        control
+        control,
     });
     const descriptionController = useController({
         name: 'description',
-        control
+        control,
     });
     const imageUrlController = useController({
         name: 'imageUrl',
-        control
+        control,
     });
 
     const updateImageLoaded = useCallback((bool: boolean) => {
         setImageLoaded(bool);
-        trigger('imageUrl')
+        trigger('imageUrl');
     }, [setImageLoaded, trigger]);
 
     const { mutateAsync, isLoading: isSubmitting, error: creationError } = useCreateCampaignMutation();
@@ -70,8 +70,8 @@ export const NewCampaign: FunctionalComponent = () => {
         if (isSubmitting) {
             return;
         }
-        mutateAsync(formValues())
-    }, [isValid, isSubmitting, formValues, mutateAsync, trigger])
+        mutateAsync(formValues());
+    }, [isValid, isSubmitting, formValues, mutateAsync, trigger]);
 
     return (<div className='new-campaign'>
         <div className='new-campaign--header'>

@@ -37,7 +37,7 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
         setRename(group.name);
         setRecolor(group.color);
         setEditing(edit);
-    }
+    };
 
     const { toggleColorPicker } = useMemo(() => {
         // useMemo because these functions are co-dependent
@@ -66,7 +66,7 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                     <button className='group-card--toggle'
                         onClick={(e) => {
                             e.stopPropagation();
-                            setOpen(!open)
+                            setOpen(!open);
                         }}>
                         <img className='arrow-icon' src={'/assets/icons/chevron-down.svg'} alt='' />
                     </button>
@@ -74,8 +74,8 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                     {editable && (
                         <button className='group-card--edit'
                             onClick={(e) => {
-                                e.stopPropagation()
-                                toggleEdit(true)
+                                e.stopPropagation();
+                                toggleEdit(true);
                             }}>
                             <img className='pencil-icon' src={'/assets/icons/pencil.svg'} alt='' />
                         </button>
@@ -83,8 +83,8 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                     {deletable && (
                         <button className='group-card--delete'
                             onClick={(e) => {
-                                e.stopPropagation()
-                                onDelete()
+                                e.stopPropagation();
+                                onDelete();
                             }}>
                             <img className='close-icon' src={'/assets/icons/close.svg'} alt='' />
                         </button>
@@ -116,15 +116,15 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                             isError={false}
                             isDisabled={false}
                             value={rename}
-                            onChange={(v) => { setRename(v || '') }}
+                            onChange={(v) => { setRename(v || ''); }}
                             onBlur={() => null}
                         />
                     </div>
                     <button className='group-card--done'
                         onClick={(e) => {
-                            e.stopPropagation()
-                            toggleEdit(false)
-                            onEdit({ ...group, name: rename, color: recolor })
+                            e.stopPropagation();
+                            toggleEdit(false);
+                            onEdit({ ...group, name: rename, color: recolor });
                         }}>
                         <img className='checkmark-icon' src={'/assets/icons/checkmark.svg'} alt='' />
                     </button>

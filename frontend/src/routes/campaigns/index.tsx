@@ -15,8 +15,8 @@ export const Campaigns: FunctionalComponent = () => {
     const { data: user, isLoading: loadingUser } = useLoginQuery();
     const { data: campaigns, isLoading: loadingCampaigns } = useCampaignsForUserQuery(user?._id);
     const chooseCampaign = (id: db.campaign.Schema['_id']) => {
-        dispatch(actions.campaign.set({ value: id }))
-        setRoute(asRoute('/campaigns/:id', id!))
+        dispatch(actions.campaign.set({ value: id }));
+        setRoute(asRoute('/campaigns/:id', id!));
     };
     const newCampaign = () => setRoute('/campaigns/new');
 

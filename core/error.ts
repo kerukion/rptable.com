@@ -15,7 +15,7 @@ export class APIError extends Error {
     static toResponse(err: APIError): APIErrorResponse {
         return {
             code: err.code,
-            message: err.message
+            message: err.message,
         };
     }
 
@@ -37,5 +37,5 @@ export class APIError extends Error {
 
 export const ERROR_KEYS = {
     ValidationError: 'ValidationError',
-    MongoError: 'MongoError'
+    MongoError: 'MongoError',
 };

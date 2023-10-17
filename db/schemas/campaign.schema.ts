@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose'
+import * as mongoose from 'mongoose';
 import * as user from './user.schema';
 
 interface _Schema {
@@ -27,19 +27,19 @@ const campaignSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minLength: 1,
-        maxLength: 500
+        maxLength: 500,
     },
     imageUrl: {
         type: String,
         required: true,
         trim: true,
         minLength: 1,
-        maxlength: 500
+        maxlength: 500,
     },
     user_createdby: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
     },
 });
 

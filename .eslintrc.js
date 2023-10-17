@@ -10,7 +10,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -22,20 +22,20 @@ module.exports = {
   ],
   settings: {
     react: {
-      pragma: 'h'
-    }
+      pragma: 'h',
+    },
   },
   globals: {
     JSX: 'readonly',
-    React: 'readonly'
+    React: 'readonly',
   },
   overrides: [
     {
       files: ['*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
-      }
-    }
+      },
+    },
   ],
   rules: {
     '@typescript-eslint/prefer-enum-initializers': 'error',
@@ -44,8 +44,8 @@ module.exports = {
       'single',
       {
         avoidEscape: true,
-        allowTemplateLiterals: true
-      }
+        allowTemplateLiterals: true,
+      },
     ],
     'jsx-quotes': ['error', 'prefer-single'],
     'react/jsx-indent': ['error', 4],
@@ -56,6 +56,14 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'no-useless-constructor': 'off',
+    semi: 'error',
+    'comma-dangle': ['error', {
+      arrays: 'always-multiline',
+      objects: 'always-multiline',
+      imports: 'never',
+      exports: 'never',
+      functions: 'never',
+    }],
     'simple-import-sort/imports': [
       'error',
       {

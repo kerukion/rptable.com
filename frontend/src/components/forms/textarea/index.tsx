@@ -14,7 +14,7 @@ export type FormTextAreaProps<T> = FormProps & Omit<React.TextareaHTMLAttributes
 export const FormTextArea: FunctionalComponent<FormTextAreaProps<string>> = ({ value, onChange, onBlur, isError, ...props }) => {
     const textareaEl = useRef<HTMLTextAreaElement>(null);
     const handleChange = () => {
-        onChange(textareaEl.current?.value)
+        onChange(textareaEl.current?.value);
     };
     return (
         <textarea 
@@ -27,5 +27,5 @@ export const FormTextArea: FunctionalComponent<FormTextAreaProps<string>> = ({ v
             ref={textareaEl}
             onChange={handleChange}
             onBlur={onBlur} />
-    )
+    );
 };

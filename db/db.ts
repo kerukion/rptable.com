@@ -4,6 +4,6 @@ import * as user from './schemas/user.schema';
 
 export {
     user,
-    campaign,
+    campaign
     // message
-}
+};

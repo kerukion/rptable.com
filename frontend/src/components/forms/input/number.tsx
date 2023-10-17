@@ -9,11 +9,11 @@ export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ v
     const inputEl = useRef<HTMLInputElement>(null);
     const handleChange = () => {
         if (inputEl.current?.value) {
-            inputEl.current.value = inputEl.current.value.replace(/[^0-9]/g, '')
+            inputEl.current.value = inputEl.current.value.replace(/[^0-9]/g, '');
         }
         const num = (() => {
             if (inputEl.current?.value) {
-                return Number(inputEl.current.value)
+                return Number(inputEl.current.value);
             }
             return undefined;
         })();
@@ -34,5 +34,5 @@ export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ v
             ref={inputEl}
             onChange={handleChange}
             onBlur={onBlur} />
-    )
-}
+    );
+};

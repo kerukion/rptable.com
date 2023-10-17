@@ -1,5 +1,5 @@
 import {actions} from './campaign';
 
 export default {
-    campaign: actions
-}
+    campaign: actions,
+};

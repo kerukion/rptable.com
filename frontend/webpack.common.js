@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'app.js',
-        publicPath: '/'
+        publicPath: '/',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -20,7 +20,7 @@ module.exports = {
             '~db': path.resolve('db'),
             '~core': path.resolve('core'),
             '~frontend': path.resolve('frontend/src'),
-        }
+        },
     },
     module: {
         rules: [
@@ -34,10 +34,10 @@ module.exports = {
                 use: [
                     'style-loader',
                     'css-loader',
-                    'sass-loader'
-                ]
+                    'sass-loader',
+                ],
             },
-        ]
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -48,11 +48,11 @@ module.exports = {
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                { from: './frontend/assets', to: 'assets' }
-            ]
+                { from: './frontend/assets', to: 'assets' },
+            ],
         }),
         new CompressionPlugin({
             test: /.*.js$/,
-        })
-    ]
-}
+        }),
+    ],
+};

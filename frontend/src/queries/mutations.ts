@@ -14,24 +14,24 @@ export const useLoginMutation = () => {
         if (!(googleData as GoogleLoginResponse).tokenId) {
             throw Error('offline');
         }
-        return APIService.login((googleData as GoogleLoginResponse).tokenId)
+        return APIService.login((googleData as GoogleLoginResponse).tokenId);
     }, {
         onSuccess: (data: db.user.Schema) => {
             queryClient.setQueryData(CURRENT_USER, data);
-        }
+        },
     });
-}
+};
 
 export const useCreateCampaignMutation = () => {
     const dispatch = useDispatch();
     return useMutation<db.campaign.Schema, core.APIErrorResponse, core.NewCampaignForm>((formData) => {
-        return APIService.newCampaign(formData)
+        return APIService.newCampaign(formData);
     }, {
         onSuccess: (data: db.campaign.Schema) => {
-            setRoute(asRoute('/campaigns/:id', data._id!))
-            dispatch(actions.campaign.set({ value: data._id }))
-        }
+            setRoute(asRoute('/campaigns/:id', data._id!));
+            dispatch(actions.campaign.set({ value: data._id }));
+        },
     });
-}
+};
 
 // 6189c6a3e4dfb48e012cd530

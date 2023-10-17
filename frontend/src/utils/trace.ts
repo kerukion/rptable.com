@@ -14,4 +14,4 @@ export const useTraceUpdate = (props: any) => {
       }
       prev.current = props;
     });
-  }
+  };

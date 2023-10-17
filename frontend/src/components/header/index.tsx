@@ -11,14 +11,14 @@ import { AppLink } from '../app-link';
 
 export const Header: FunctionalComponent = () => {
     const userQuery = useLoginQuery();
-    const { value: campaignId } = useSelector((state: RootState) => state.campaign)
+    const { value: campaignId } = useSelector((state: RootState) => state.campaign);
     const campaignQuery = useCampaignQuery(campaignId);
     const canRouteToCampaigns = !useCanRoute('/campaigns');
     const canRouteToEncounters = !useCanRoute('/encounters');
 
     const loginUI = (user: db.user.Schema | undefined, loading: boolean): JSX.Element => {
         if (loading) {
-            return (<span>o</span>)
+            return (<span>o</span>);
         }
 
         if (!user) {
@@ -34,7 +34,7 @@ export const Header: FunctionalComponent = () => {
                 {user.username}
             </Link>
         );
-    }
+    };
 
     const campaignUI = (campaign?: db.campaign.Schema): JSX.Element => {
         if (!campaign) {
@@ -60,7 +60,7 @@ export const Header: FunctionalComponent = () => {
                 </span>
             </Fragment>
         );
-    }
+    };
 
     return (
         <header className='header'>

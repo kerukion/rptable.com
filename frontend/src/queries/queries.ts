@@ -5,22 +5,22 @@ import { APIService } from '~frontend/services';
 import { CAMPAIGN, CURRENT_USER, SESSION, USER_CAMPAIGNS } from './keys';
 
 export const useLoginQuery = () => {
-    return useQuery<db.user.Schema, core.APIErrorResponse>(CURRENT_USER, APIService.getCurrentUser, { retry: false, });
-}
+    return useQuery<db.user.Schema, core.APIErrorResponse>(CURRENT_USER, APIService.getCurrentUser, { retry: false });
+};
 
 export const useCampaignsForUserQuery = (userId: db.user.Schema['_id']) => {
     return useQuery<db.campaign.Schema[], core.APIErrorResponse>(
         USER_CAMPAIGNS,
         () => APIService.getAllCampaigns({ user_createdby: userId })
     );
-}
+};
 
 export const useCampaignQuery = (campaignId: db.campaign.Schema['_id']) => {
     return useQuery<db.campaign.Schema, core.APIErrorResponse>(
         [CAMPAIGN, campaignId],
         () => APIService.getCampaign({ _id: campaignId })
-    )
-}
+    );
+};
 
 // export const useCampaignQuery = (campaignId: string | undefined) => {
 //     return useQuery<db.campaign.Schema | undefined, core.APIErrorResponse>(
@@ -47,7 +47,7 @@ export const useSessionQuery = () => {
             campaignId: '1',
             name: 'Capital',
             number: 69,
-        }
+        };
         return mockSession;
-    })
-}
+    });
+};

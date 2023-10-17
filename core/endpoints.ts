@@ -12,7 +12,7 @@ const getEndpoints = (baseUrl: string) => {
         '/users/:id/campaigns': (id: db.user.Schema['_id']) => addHost(`/users/${id}/campaigns`),
         '/campaigns/:id': (id: db.campaign.Schema['_id']) => addHost(`/campaigns/${id}`),
         // '/chatrooms/:id/messages/recent': (id: db.chatroom.Schema['_id']) => `${baseUrl}/chatrooms/${id}/messages/recent`,
-    }
+    };
 };
 
 export class Endpoints {

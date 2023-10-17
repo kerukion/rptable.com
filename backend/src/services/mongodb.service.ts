@@ -50,7 +50,7 @@ export class MongoDbService implements IDbService {
         this.connectionRequested$.next();
         const status = await firstValueFrom(race(
             this.connectionStatus$.pipe(filter((ready: ConnectionStatus) => ready.success)),
-            this.connectionStatus$.pipe(skip(1), filter((ready: ConnectionStatus) => !!ready.error)),
+            this.connectionStatus$.pipe(skip(1), filter((ready: ConnectionStatus) => !!ready.error))
         ));
 
         if (status.error) {

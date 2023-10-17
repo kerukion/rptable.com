@@ -1,6 +1,6 @@
 import express from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet,httpPost, interfaces,  } from 'inversify-express-utils';
+import { controller, httpGet,httpPost, interfaces  } from 'inversify-express-utils';
 import { IAuthService } from '~backend/interfaces';
 import { routes } from '~backend/routes';
 import { TOKENS } from '~backend/tokens';
@@ -22,7 +22,7 @@ export class AuthController implements interfaces.Controller {
     @httpPost(routes['/api/v1/auth/google'])
     public async googleOAuth(req: core.Request<core.GoogleOAuthRequest>, res: express.Response): Promise<db.user.Schema | undefined> {
         const user = await this.authService.googleOAuth(req, res);
-        res.status(201)
+        res.status(201);
         return user;
     }
 

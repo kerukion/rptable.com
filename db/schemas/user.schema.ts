@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose'
+import * as mongoose from 'mongoose';
 
 interface _Schema {
     username: string;
@@ -20,15 +20,15 @@ const userSchema = new mongoose.Schema({
         maxLength: 100,
         lowercase: true,
         index: {
-            unique: true
-        }
+            unique: true,
+        },
     },
     name: {
         type: String,
         required: true,
         trim: true,
         minLength: 1,
-        maxLength: 100
+        maxLength: 100,
     },
 });
 

@@ -1,6 +1,6 @@
 import express from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet, httpPost, interfaces, request, requestParam, response, } from 'inversify-express-utils';
+import { controller, httpGet, httpPost, interfaces, request, requestParam, response } from 'inversify-express-utils';
 import { ICampaignService } from '~backend/interfaces';
 import { routes } from '~backend/routes';
 import { TOKENS } from '~backend/tokens';

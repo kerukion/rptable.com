@@ -1,5 +1,5 @@
-import * as core from './core'
+import * as core from './core';
 
 export {
     core
-}
+};

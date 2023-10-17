@@ -25,7 +25,7 @@ server.setConfig((app) => {
         credentials: true,
     }));
     app.use(urlencoded({
-        extended: true
+        extended: true,
     }));
     app.use(json());
     app.use(cookies());

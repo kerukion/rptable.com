@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface CampaignIdSlice {
     value?: string;
@@ -11,10 +11,10 @@ const campaignIdSlice = createSlice({
     } as CampaignIdSlice,
     reducers: {
         set: (state, action: PayloadAction<CampaignIdSlice>) => {
-            state.value = action.payload.value
+            state.value = action.payload.value;
         },
     },
-})
+});
 
-export const actions = campaignIdSlice.actions
+export const actions = campaignIdSlice.actions;
 export const campaign = campaignIdSlice.reducer;

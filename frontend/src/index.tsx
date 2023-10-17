@@ -3,25 +3,25 @@ import { Fragment, FunctionalComponent, h, render } from 'preact';
 import { useCallback, useState } from 'preact/hooks';
 import { Router, RouterOnChangeArgs, RouterProps } from 'preact-router';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { AppRoute, Header, RedirectTo } from './components';
 import { useLoginQuery } from './queries';
 import { AppRoutes, setRoute, useCanRoute } from './queries/routing';
 import { Campaign, Campaigns, Encounter, Encounters, Login, NewCampaign, NewEncounter } from './routes';
-import { store } from './store'
+import { store } from './store';
 
 const MainRoutes: FunctionalComponent = () => {
     const userQuery = useLoginQuery();
-    const [url, setUrl] = useState<AppRoutes>('/login')
+    const [url, setUrl] = useState<AppRoutes>('/login');
     const redirect = useCanRoute(url);
-    console.log('MR rerender', url, redirect)
+    console.log('MR rerender', url, redirect);
 
     if (redirect) {
         setRoute(redirect);
     }
 
     if (userQuery.isLoading) {
-        return <div>loading...</div>
+        return <div>loading...</div>;
     }
 
     return (
@@ -41,7 +41,7 @@ const MainRoutes: FunctionalComponent = () => {
 };
 
 const App: FunctionalComponent = () => {
-    const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } })
+    const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } });
 
     return (
         <div id='preact_root'>

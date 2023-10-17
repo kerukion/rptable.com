@@ -32,7 +32,7 @@ export const NewEncounter: FunctionalComponent = () => {
 
     // add "index" to CGL so they can be sorted while in edit mode? LATER
 
-    console.log('top level render...')
+    console.log('top level render...');
 
     // 1. load '/' homepage
     // 2. reactQuery => getCampaigns() and render Home page
@@ -41,7 +41,7 @@ export const NewEncounter: FunctionalComponent = () => {
     // 5. can now get campaign state anywhere, global.CampaignID anywhere.
 
     // asserting that core.Campaign will never be undefined in this context
-    const { value: campaignId } = useSelector((state: RootState) => state.campaign)
+    const { value: campaignId } = useSelector((state: RootState) => state.campaign);
     // const { data: campaign } = useCampaignQuery(campaignId);
 
     const campaign: db.campaign.Schema = {
@@ -49,11 +49,11 @@ export const NewEncounter: FunctionalComponent = () => {
         name: 'The Rival Gods',
         description: 'The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.',
         imageUrl: 'https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5',
-        user_createdby: '1'
+        user_createdby: '1',
     };
 
     if (!campaign) {
-        console.log('wtf')
+        console.log('wtf');
     }
 
     const sessions: core.Session[] = useMemo(() => [
@@ -61,66 +61,66 @@ export const NewEncounter: FunctionalComponent = () => {
             id: '1',
             campaignId: '1',
             name: 'Capital',
-            number: 67
+            number: 67,
         },
         {
             id: '2',
             campaignId: '1',
             name: 'Tethers',
-            number: 68
+            number: 68,
         },
         {
             id: '3',
             campaignId: '1',
             name: 'Enigmas',
-            number: 69
-        }
+            number: 69,
+        },
     ], []);
     const sessionIds = useMemo(() => sessions.map(s => s.id), [sessions]);
-    const sortedSessions = useMemo(() => sessions.sort((s1, s2) => s2.number - s1.number), [sessions])
+    const sortedSessions = useMemo(() => sessions.sort((s1, s2) => s2.number - s1.number), [sessions]);
     const locations: core.Location[] = [
         {
             id: '1',
             campaignId: '1',
             parentLocationId: undefined,
             name: 'Estrador',
-            description: 'The world of the campaign.'
+            description: 'The world of the campaign.',
         },
         {
             id: '2',
             campaignId: '1',
             parentLocationId: '1',
             name: 'Vale Estria',
-            description: 'The human kingdom within Estrador'
+            description: 'The human kingdom within Estrador',
         },
         {
             id: '3',
             campaignId: '1',
             parentLocationId: '2',
             name: 'The Inwilds',
-            description: 'A wild, mostly unsettled forest that lies between the 3 cities of Vale Estria.'
+            description: 'A wild, mostly unsettled forest that lies between the 3 cities of Vale Estria.',
         },
         {
             id: '4',
             campaignId: '1',
             parentLocationId: '2',
             name: 'Fairmont',
-            description: 'The southeastern city of the Vale, ruled by Joy Lord Gerimund.'
+            description: 'The southeastern city of the Vale, ruled by Joy Lord Gerimund.',
         },
         {
             id: '5',
             campaignId: '1',
             parentLocationId: '4',
             name: 'The Perafort Dam',
-            description: 'The remote fortress where dwarves manage the sophisticated dam powering Fairmont\'s industry.'
+            description: 'The remote fortress where dwarves manage the sophisticated dam powering Fairmont\'s industry.',
         },
         {
             id: '6',
             campaignId: '1',
             parentLocationId: '4',
             name: 'The Jubilee Stage',
-            description: 'An abandoned amphitheatre and stagehouse where public plays were once enjoyed.'
-        }
+            description: 'An abandoned amphitheatre and stagehouse where public plays were once enjoyed.',
+        },
     ];
     const locationIds = locations.map(l => l.id);
 
@@ -141,7 +141,7 @@ export const NewEncounter: FunctionalComponent = () => {
             imageUrl: 'https://www.dndbeyond.com/avatars/20974/793/1581111423-59971659.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp',
             maxSpellSlots: [],
             description: '',
-            statBlock: ''
+            statBlock: '',
         },
         {
             id: '2',
@@ -157,7 +157,7 @@ export const NewEncounter: FunctionalComponent = () => {
                     level: 4,
                     class: core.Class.BARD,
                     className: 'Bard',
-                }
+                },
             ],
             unique: true,
             maxHP: 143,
@@ -166,7 +166,7 @@ export const NewEncounter: FunctionalComponent = () => {
             imageUrl: 'https://www.dndbeyond.com/avatars/20970/384/1581111423-59958523.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp',
             maxSpellSlots: [4, 3],
             description: '',
-            statBlock: ''
+            statBlock: '',
         },
         {
             id: '3',
@@ -184,8 +184,8 @@ export const NewEncounter: FunctionalComponent = () => {
             imageUrl: 'https://www.dndbeyond.com/avatars/21051/957/1581111423-60196211.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp',
             maxSpellSlots: [4, 3, 3, 1],
             description: '',
-            statBlock: ''
-        }
+            statBlock: '',
+        },
     ];
     const characters: core.Creature[] = [
         {
@@ -203,7 +203,7 @@ export const NewEncounter: FunctionalComponent = () => {
             imageUrl: 'https://www.dndbeyond.com/avatars/thumbnails/17/179/60/60/636377835623886578.jpeg',
             maxSpellSlots: [],
             description: '',
-            statBlock: ''
+            statBlock: '',
         },
         {
             id: '5',
@@ -213,7 +213,7 @@ export const NewEncounter: FunctionalComponent = () => {
                     level: 5,
                     class: core.Class.FIGHTER,
                     className: 'Fighter',
-                }
+                },
             ],
             unique: true,
             maxHP: 44,
@@ -222,7 +222,7 @@ export const NewEncounter: FunctionalComponent = () => {
             imageUrl: 'https://www.dndbeyond.com/avatars/17/204/636377839475886288.jpeg?width=150&height=150&fit=crop&quality=95&auto=webp',
             maxSpellSlots: [],
             description: '',
-            statBlock: ''
+            statBlock: '',
         },
         {
             id: '6',
@@ -239,8 +239,8 @@ export const NewEncounter: FunctionalComponent = () => {
             imageUrl: 'https://www.dndbeyond.com/avatars/thumbnails/21234/196/60/60/1581111423-60740217.jpeg',
             maxSpellSlots: [0, 0, 0, 0, 2],
             description: '',
-            statBlock: ''
-        }
+            statBlock: '',
+        },
     ];
     const creatures: core.Creature[] = [
         {
@@ -268,8 +268,8 @@ export const NewEncounter: FunctionalComponent = () => {
             description: '',
             statBlock: '',
             unique: false,
-        }
-    ]
+        },
+    ];
     const campaignCreatures: core.CampaignCreatureMap = {
         [core.CreatureType.PLAYER]: players,
         [core.CreatureType.CHARACTER]: characters,
@@ -292,7 +292,7 @@ export const NewEncounter: FunctionalComponent = () => {
             'oneOf',
             '',
             function (value?: string) {
-                return !!value && (this.parent as NewEncounterForm).sessionIds.includes(value)
+                return !!value && (this.parent as NewEncounterForm).sessionIds.includes(value);
             }
         ),
         locationIds: yup.array().min(1).of(yup.string().required().oneOf(locationIds)),
@@ -300,7 +300,7 @@ export const NewEncounter: FunctionalComponent = () => {
             'oneOf',
             '',
             function (value?: string) {
-                return !!value && (this.parent as NewEncounterForm).locationIds.includes(value)
+                return !!value && (this.parent as NewEncounterForm).locationIds.includes(value);
             }
         ),
         currentRound: yup.number().required(),
@@ -330,7 +330,7 @@ export const NewEncounter: FunctionalComponent = () => {
             typeError: 'Field is required',
             required: 'Field is required',
         },
-    }
+    };
 
     const { control, trigger, formState: { errors } } = useForm<NewEncounterForm>({
         mode: 'all',
@@ -339,27 +339,27 @@ export const NewEncounter: FunctionalComponent = () => {
 
     const sessionIdsController = useController({
         name: 'sessionIds',
-        control
+        control,
     });
     const currentSessionIdController = useController({
         name: 'currentSessionId',
-        control
+        control,
     });
     const locationIdsController = useController({
         name: 'locationIds',
-        control
+        control,
     });
     const currentLocationIdController = useController({
         name: 'currentLocationId',
-        control
+        control,
     });
     const nameController = useController({
         name: 'name',
-        control
+        control,
     });
     const currentRoundController = useController({
         name: 'currentRound',
-        control
+        control,
     });
 
     const isSubmitting = false;
@@ -367,7 +367,7 @@ export const NewEncounter: FunctionalComponent = () => {
     const [search, setSearch] = useState<string>('');
     const updateSearch = useCallback((s: string) => setSearch(s), [setSearch]);
     const debouncedEventHandler = useMemo(() => {
-        return debounce(updateSearch, 300)
+        return debounce(updateSearch, 300);
     }, [updateSearch]);
 
     const [instanceMap, setInstanceMap] = useState<core.InstanceCreatureMap>({
@@ -390,7 +390,7 @@ export const NewEncounter: FunctionalComponent = () => {
 
     const getInstancesForGroup = (instances: core.InstanceCreatureMap, cgId: core.CreatureGroup['instanceId']): core.CreatureInstance[] =>
         getAllInstances(instances)
-            .filter(p => creatureGroupMapping[p.instanceId] === cgId)
+            .filter(p => creatureGroupMapping[p.instanceId] === cgId);
 
     const groupCreatureInstance = (ci: core.CreatureInstanceMetaData['instanceId']) => {
         if (creatureGroups.find(cg => cg.instanceId === activeCreatureGroupId) == undefined && activeCreatureGroupId !== unsetCreatureGroup.instanceId) {
@@ -406,7 +406,7 @@ export const NewEncounter: FunctionalComponent = () => {
             tempHP: 0,
             encounterNotes: '',
             availableSpellSlots: c.maxSpellSlots,
-            instanceId: uuidv4()
+            instanceId: uuidv4(),
         };
         const newInstanceTypeMap = { ...instanceMap[type], [instance.instanceId]: instance };
         setInstanceMap({ ...instanceMap, [type]: newInstanceTypeMap });
@@ -416,7 +416,7 @@ export const NewEncounter: FunctionalComponent = () => {
     type GroupList = core.CreatureGroup & { instances: (core.CreatureInstance | core.PlayerInstance)[] };
     const creatureGroupLists: GroupList[] = creatureGroups.map((cg) => ({
         ...cg,
-        instances: getInstancesForGroup(instanceMap, cg.instanceId)
+        instances: getInstancesForGroup(instanceMap, cg.instanceId),
     }));
 
     const unsetGroupList: GroupList = {
@@ -439,9 +439,9 @@ export const NewEncounter: FunctionalComponent = () => {
         setCreatureGroups(newCreatureGroups);
 
         if (gl.instanceId === activeCreatureGroupId) {
-            setActiveCreatureGroupId(unsetCreatureGroup.instanceId)
+            setActiveCreatureGroupId(unsetCreatureGroup.instanceId);
         }
-    }
+    };
 
     const removeInstance = <T extends core.CreatureInstanceMetaData>(c: T) => {
         const newInstanceTypeMap = { ...instanceMap[c.type] };
@@ -460,10 +460,10 @@ export const NewEncounter: FunctionalComponent = () => {
             return false;
         }
         return searchIncludes(c.name);
-    }
+    };
 
     if (!campaign) {
-        return null
+        return null;
     }
 
     return (<div className='new-encounter'>
@@ -538,7 +538,7 @@ export const NewEncounter: FunctionalComponent = () => {
                         isError={!!errors.locationIds}
                         size='large'
                         render={(option) => {
-                            return `${option.name}`
+                            return `${option.name}`;
                         }}
                     />
                     <FormError
@@ -555,7 +555,7 @@ export const NewEncounter: FunctionalComponent = () => {
                         isError={!!errors.currentLocationId}
                         size='large'
                         render={(option) => {
-                            return `${option.name}`
+                            return `${option.name}`;
                         }}
                     />
                     <FormError
@@ -610,7 +610,7 @@ export const NewEncounter: FunctionalComponent = () => {
                                                 isError={false}
                                                 isDisabled={false}
                                                 value={search}
-                                                onChange={(v) => { debouncedEventHandler(v || '') }}
+                                                onChange={(v) => { debouncedEventHandler(v || ''); }}
                                                 onBlur={() => null}
                                             />
                                             <img className='search-icon' src={'/assets/icons/search.svg'} alt='' />
@@ -644,7 +644,7 @@ export const NewEncounter: FunctionalComponent = () => {
                                         name: 'New Group',
                                         alignment: core.CreatureGroupAlignment.NEUTRAL,
                                         color: '#fef3bd',
-                                    }])
+                                    }]);
                                 }}>
                                     Add new Group
                                 </FormButton>
@@ -656,7 +656,7 @@ export const NewEncounter: FunctionalComponent = () => {
                                     deletable={cgl.instanceId !== unsetGroupList.instanceId}
                                     editable={cgl.instanceId !== unsetGroupList.instanceId}
                                     active={cgl.instanceId === activeCreatureGroupId}
-                                    onClick={() => { setActiveCreatureGroupId(cgl.instanceId) }}
+                                    onClick={() => { setActiveCreatureGroupId(cgl.instanceId); }}
                                     onEdit={(newCg) => {
                                         const newCgs = [...creatureGroups].map((cg) => {
                                             if (cg.instanceId === newCg.instanceId) {
@@ -666,7 +666,7 @@ export const NewEncounter: FunctionalComponent = () => {
                                         });
                                         setCreatureGroups(newCgs);
                                     }}
-                                    onDelete={() => { deleteGroupList(cgl) }}>
+                                    onDelete={() => { deleteGroupList(cgl); }}>
                                     {cgl.instances.map(c => (
                                         <div key={c.instanceId} className='card-row'>
                                             <CreatureCard creature={c} />

@@ -37,7 +37,7 @@ export const FormSelect = <T, K,>({
                 onBlur();
             }
         }
-    }, [open, setOpen, shouldDisable, onBlur])
+    }, [open, setOpen, shouldDisable, onBlur]);
 
     const toggleSelect = useCallback(() => {
         if (shouldDisable) {
@@ -74,7 +74,7 @@ export const FormSelect = <T, K,>({
         document.body.addEventListener('mousedown', clickOut);
         return () => {
             document.body.removeEventListener('mousedown', clickOut);
-        }
+        };
     }, [clickOut]);
 
     const renderCurrent = () => {
@@ -86,7 +86,7 @@ export const FormSelect = <T, K,>({
             return null;
         }
         return render(current);
-    }
+    };
 
     return (
         <div
@@ -112,5 +112,5 @@ export const FormSelect = <T, K,>({
                 </div>
             )}
         </div>
-    )
-}
+    );
+};

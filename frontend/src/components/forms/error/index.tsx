@@ -20,7 +20,7 @@ export const FormError: FunctionalComponent<FormErrorProps> = ({ error, mapping}
     }
     return (<p className='form-error'>
         {wrapped.map(e => {
-            return mapping[e.type] || e.message
+            return mapping[e.type] || e.message;
         })}
-    </p>)
-}
+    </p>);
+};

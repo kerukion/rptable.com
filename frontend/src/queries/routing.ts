@@ -6,7 +6,7 @@ import { useLoginQuery } from '.';
 
 export const asRoute = (r: AppRoutes, id: string): AppRoutes => {
     if (!r.includes(':id')) {
-        throw Error(`Tried to route by id to ${r} that does not accept id in path.`)
+        throw Error(`Tried to route by id to ${r} that does not accept id in path.`);
     }
 
     return r.replace(':id', id) as AppRoutes;
@@ -62,7 +62,7 @@ const getAppRoute = (route: AppRoutes): AppRoutes | undefined => {
     }
 
     return undefined;
-}
+};
 
 const canRoute: Record<AppRoutes, Array<(c: RouteContext) => RouteResponse>> = ({
     '/login': [({ user, campaignId }: RouteContext) => {
@@ -84,15 +84,15 @@ const canRoute: Record<AppRoutes, Array<(c: RouteContext) => RouteResponse>> = (
 
 export const useCanRoute = (route: AppRoutes): RouteResponse => {
     const { data: user } = useLoginQuery();
-    const { value: campaignId } = useSelector((state: RootState) => state.campaign)
+    const { value: campaignId } = useSelector((state: RootState) => state.campaign);
     const appRoute = getAppRoute(route);
-    console.log('useCanRoute: approute', appRoute, route)
+    console.log('useCanRoute: approute', appRoute, route);
     if (!appRoute) {
         return '/login';
     }
     const context: RouteContext = { user, campaignId };
     const failedGuard = canRoute[appRoute].find(rg => !!rg(context));
     const redirect = failedGuard ? failedGuard(context) : undefined;
-    console.log('useCanRoute: result', route, user, campaignId, redirect)
+    console.log('useCanRoute: result', route, user, campaignId, redirect);
     return redirect;
 };

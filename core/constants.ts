@@ -26,10 +26,10 @@ const groups = (): core.CreatureGroup[] => [
         name: 'Neutral',
         alignment: core.CreatureGroupAlignment.NEUTRAL,
         color: '#fef3bd',
-    }
+    },
 ];
 
 export const defaults = {
     unsetGroup,
-    groups
-}
+    groups,
+};

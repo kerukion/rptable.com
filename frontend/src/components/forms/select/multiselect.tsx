@@ -29,7 +29,7 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
     const [open, setOpen] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
-    const [selected, setSelected] = useState(new Set<K>())
+    const [selected, setSelected] = useState(new Set<K>());
     const [sortedOptions, setSortedOptions] = useState(options || []);
     const shouldDisable = isDisabled || sortedOptions.length === 0;
 
@@ -43,7 +43,7 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
                 onBlur();
             }
         }
-    }, [previewOpen, setPreviewOpen, open, setOpen, onBlur, shouldDisable])
+    }, [previewOpen, setPreviewOpen, open, setOpen, onBlur, shouldDisable]);
 
     useEffect(() => {
         const sorted = [...(options || [])].sort((o1, o2) => {
@@ -109,7 +109,7 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
         document.body.addEventListener('mousedown', clickOut);
         return () => {
             document.body.removeEventListener('mousedown', clickOut);
-        }
+        };
     }, [clickOut]);
 
     const renderCurrent = () => {
@@ -120,8 +120,8 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
         if (!current) {
             return null;
         }
-        return render(current)
-    }
+        return render(current);
+    };
 
     return (
         <div
@@ -163,7 +163,7 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
                             <div key={mapToKey(o)}
                                 onClick={() => toggleOption(o)}
                                 className={`select-option ${classNames({
-                                    'select-option--chosen': selected.has(mapToKey(o))
+                                    'select-option--chosen': selected.has(mapToKey(o)),
                                 })}`}>
                                 <input type='checkbox' checked={selected.has(mapToKey(o))} />
                                 <span>{render(o)}</span>
@@ -173,5 +173,5 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
                 </div>
             )}
         </div>
-    )
-}
+    );
+};

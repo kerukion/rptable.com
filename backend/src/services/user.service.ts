@@ -15,7 +15,7 @@ export class UserService implements IUserService {
             return UserService.documentToSchema(newUser);
         } catch (err: any) {
             if (err.name && err.name === core.ERROR_KEYS.MongoError && err.code === 11000) {
-                throw new core.APIError(400, 'Username is already in use.')
+                throw new core.APIError(400, 'Username is already in use.');
             } else {
                 throw err;
             }
@@ -36,7 +36,7 @@ export class UserService implements IUserService {
         return {
             _id: document._id,
             username: document.username,
-            name: document.name
+            name: document.name,
         };
     }
 }
