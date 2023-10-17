@@ -1,13 +1,8 @@
+import express from 'express';
 import { Delta } from 'jsondiffpatch';
 import { db } from '~db';
 import * as enums from './enums';
 
-export interface Campaign {
-    id: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-}
 
 export interface Location {
     id: string;
@@ -41,7 +36,7 @@ export interface Encounter extends EncounterCore {
     // players: PlayerCharacter[];
     // characters: Character[];
     // creatures: Creature[];
-    creatureGroups: CreatureGroup[]; 
+    creatureGroups: CreatureGroup[];
     currentTurn: CreatureInstance['instanceId'];
     instanceMapping: InstanceCreatureMap;
     initiativeMapping: Record<CreatureInstance['instanceId'], number>; // initiative order is derived from this object, inverted
@@ -189,3 +184,14 @@ export interface LoginRequest {
 export interface GoogleOAuthRequest {
     token: string;
 }
+
+export interface NewCampaignForm {
+    name: string;
+    description: string;
+    imageUrl: string;
+}
+
+export type NewCampaignRequest = NewCampaignForm;
+export type AllCampaignsRequest = Pick<db.campaign.Schema, 'user_createdby'>;
+export type CampaignRequest = Pick<db.campaign.Schema, '_id'>;
+export type Request<T = Record<string, any>> = Omit<express.Request, 'body'> & { body: T };

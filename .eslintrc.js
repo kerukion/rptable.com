@@ -48,10 +48,12 @@ module.exports = {
       }
     ],
     'jsx-quotes': ['error', 'prefer-single'],
+    'react/jsx-indent': ['error', 4],
     'react/jsx-indent-props': ['error', 4],
     'react/jsx-max-props-per-line': ['error', { maximum: 1, when: 'multiline' }],
     'react/prop-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'no-useless-constructor': 'off',
     'simple-import-sort/imports': [

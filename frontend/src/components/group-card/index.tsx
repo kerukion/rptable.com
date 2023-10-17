@@ -115,7 +115,6 @@ export const GroupCard: FunctionalComponent<CreatureGroupProps> = ({
                             size='elastic'
                             isError={false}
                             isDisabled={false}
-                            isTouched={false}
                             value={rename}
                             onChange={(v) => { setRename(v || '') }}
                             onBlur={() => null}

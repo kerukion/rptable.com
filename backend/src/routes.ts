@@ -1,3 +1,3 @@
 import { core } from '~core';
 
-export const routes = core.Routes.relativeTo('');
+export const routes = core.Endpoints.relativeTo('');

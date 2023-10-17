@@ -1,12 +1,14 @@
 import './style.scss';
 import { FunctionalComponent, h } from 'preact';
-import { core } from '~core';
+import { db } from '~db';
+import { FormButton } from '../forms';
 
 interface CampaignCardProps {
-    campaign: core.Campaign;
+    campaign: db.campaign.Schema;
+    onSelect: () => void;
 }
 
-export const CampaignCard: FunctionalComponent<CampaignCardProps> = ({ campaign }) => {
+export const CampaignCard: FunctionalComponent<CampaignCardProps> = ({ campaign, onSelect }) => {
     return (
         <div className='campaign-card'>
             <img className='campaign-card--cover' src={campaign.imageUrl} />
@@ -15,15 +17,10 @@ export const CampaignCard: FunctionalComponent<CampaignCardProps> = ({ campaign 
                 {campaign.description}
             </p>
             <div className='campaign-card--actions'>
-                <button>
-                    View
-                </button>
-                <button>
-                    Edit
-                </button>
-                <button>
-                    Delete
-                </button>
+                <FormButton kind='action' 
+                    onClick={onSelect}>
+                    Select
+                </FormButton>
             </div>
         </div>
     );

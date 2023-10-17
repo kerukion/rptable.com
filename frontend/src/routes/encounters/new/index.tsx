@@ -5,11 +5,13 @@ import debounce from 'debounce';
 import { FunctionalComponent, h } from 'preact';
 import { useCallback, useMemo, useState } from 'preact/hooks';
 import { useController, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 import { core } from '~core';
+import { db } from '~db';
 import { CreatureCard, FormButton, FormError, FormInput, FormInputNumber, FormMultiSelect, FormSelect, GroupCard } from '~frontend/components';
-import { useCampaignQuery } from '~frontend/queries';
+import { RootState } from '~frontend/store';
 
 export const NewEncounter: FunctionalComponent = () => {
     // const CHARACTER_GROUP_LIMIT = 10;
@@ -39,7 +41,21 @@ export const NewEncounter: FunctionalComponent = () => {
     // 5. can now get campaign state anywhere, global.CampaignID anywhere.
 
     // asserting that core.Campaign will never be undefined in this context
-    const { data: campaign } = useCampaignQuery() as { data: core.Campaign };
+    const { value: campaignId } = useSelector((state: RootState) => state.campaign)
+    // const { data: campaign } = useCampaignQuery(campaignId);
+
+    const campaign: db.campaign.Schema = {
+        _id: '1',
+        name: 'The Rival Gods',
+        description: 'The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.',
+        imageUrl: 'https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5',
+        user_createdby: '1'
+    };
+
+    if (!campaign) {
+        console.log('wtf')
+    }
+
     const sessions: core.Session[] = useMemo(() => [
         {
             id: '1',
@@ -446,6 +462,10 @@ export const NewEncounter: FunctionalComponent = () => {
         return searchIncludes(c.name);
     }
 
+    if (!campaign) {
+        return null
+    }
+
     return (<div className='new-encounter'>
         <div className='new-encounter--header'>
             <h1>Create an encounter</h1>
@@ -460,11 +480,10 @@ export const NewEncounter: FunctionalComponent = () => {
                         value={campaign.name}
                         isDisabled={true}
                         isError={false}
-                        isTouched={false}
                         size='large'
                     />
                     <FormError
-                        show={false}
+                        error={errors.name}
                         mapping={{}} />
                 </div>
                 <div className='form-row'>
@@ -479,7 +498,6 @@ export const NewEncounter: FunctionalComponent = () => {
                         }}
                         isDisabled={isSubmitting}
                         isError={!!errors.sessionIds}
-                        isTouched={sessionIdsController.fieldState.isTouched}
                         size='large'
                         render={(option) => {
                             return `Session #${option.number}: ${option.name}`;
@@ -487,7 +505,6 @@ export const NewEncounter: FunctionalComponent = () => {
                     />
                     <FormError
                         error={errors.sessionIds}
-                        show={sessionIdsController.fieldState.isTouched}
                         mapping={errorMapping.sessionIds} />
                 </div>
                 <div className='form-row'>
@@ -498,7 +515,6 @@ export const NewEncounter: FunctionalComponent = () => {
                         {...currentSessionIdController.field}
                         isDisabled={isSubmitting}
                         isError={!!errors.currentSessionId}
-                        isTouched={currentSessionIdController.fieldState.isTouched}
                         size='large'
                         render={(option) => {
                             return `Session #${option.number}: ${option.name}`;
@@ -506,7 +522,6 @@ export const NewEncounter: FunctionalComponent = () => {
                     />
                     <FormError
                         error={errors.currentSessionId}
-                        show={currentSessionIdController.fieldState.isTouched}
                         mapping={errorMapping.currentSessionId} />
                 </div>
                 <div className='form-row'>
@@ -521,7 +536,6 @@ export const NewEncounter: FunctionalComponent = () => {
                         }}
                         isDisabled={isSubmitting}
                         isError={!!errors.locationIds}
-                        isTouched={locationIdsController.fieldState.isTouched}
                         size='large'
                         render={(option) => {
                             return `${option.name}`
@@ -529,7 +543,6 @@ export const NewEncounter: FunctionalComponent = () => {
                     />
                     <FormError
                         error={errors.locationIds}
-                        show={locationIdsController.fieldState.isTouched}
                         mapping={errorMapping.locationIds} />
                 </div>
                 <div className='form-row'>
@@ -540,7 +553,6 @@ export const NewEncounter: FunctionalComponent = () => {
                         {...currentLocationIdController.field}
                         isDisabled={isSubmitting}
                         isError={!!errors.currentLocationId}
-                        isTouched={currentLocationIdController.fieldState.isTouched}
                         size='large'
                         render={(option) => {
                             return `${option.name}`
@@ -548,7 +560,6 @@ export const NewEncounter: FunctionalComponent = () => {
                     />
                     <FormError
                         error={errors.currentLocationId}
-                        show={currentLocationIdController.fieldState.isTouched}
                         mapping={errorMapping.currentLocationId} />
                 </div>
                 <div className='form-row'>
@@ -558,11 +569,9 @@ export const NewEncounter: FunctionalComponent = () => {
                         size={'large'}
                         isDisabled={isSubmitting}
                         isError={!!errors.name}
-                        isTouched={nameController.fieldState.isTouched}
                         {...nameController.field} />
                     <FormError
                         error={errors.name}
-                        show={nameController.fieldState.isTouched}
                         mapping={errorMapping.name} />
                 </div>
                 <div className='form-row'>
@@ -571,11 +580,9 @@ export const NewEncounter: FunctionalComponent = () => {
                         maxLength={2}
                         isDisabled={isSubmitting}
                         isError={!!errors.currentRound}
-                        isTouched={currentRoundController.fieldState.isTouched}
                         {...currentRoundController.field} />
                     <FormError
                         error={errors.currentRound}
-                        show={currentRoundController.fieldState.isTouched}
                         mapping={errorMapping.currentRound} />
                 </div>
             </div>
@@ -602,7 +609,6 @@ export const NewEncounter: FunctionalComponent = () => {
                                                 placeholder='Search...'
                                                 isError={false}
                                                 isDisabled={false}
-                                                isTouched={false}
                                                 value={search}
                                                 onChange={(v) => { debouncedEventHandler(v || '') }}
                                                 onBlur={() => null}

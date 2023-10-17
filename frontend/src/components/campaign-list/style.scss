@@ -1,14 +1,10 @@
 .campaign-list {
     display: flex;
+    flex-wrap: wrap;
     
     &--campaign {
         width: 500px;
         height: 315px;
-        margin-left: 40px;
-        margin-bottom: 40px;
-
-        &:first-of-type {
-            margin-left: 0;
-        }
+        margin: 10px;
     }
 }

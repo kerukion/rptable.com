@@ -1,4 +1,4 @@
-.home {
+.campaigns {
 	padding: 20px;	
 	height: 100%;
 	width: 100%;
@@ -15,20 +15,17 @@
 	&--campaign-slots {
 		font-style: italic;
 		font-size: 12px;
-		position: absolute;
-		top: 100%;
 		padding-top: 2px;
 		color: darkslategray;
 		font-family: sans-serif;
 		text-transform: none;
-		left: 0;
-		width: 100%;
 	}
 
 	&--new-campaign {
-		margin-left: 20px;
+		display: flex;
+		align-items: center;
 		button {
-			position: relative;
+			margin: 0 10px 0 20px;
 		}
 	} 
 }

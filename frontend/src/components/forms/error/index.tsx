@@ -5,10 +5,9 @@ import { FieldError } from 'react-hook-form';
 export interface FormErrorProps {
     error?: FieldError | FieldError[];
     mapping: Record<string, string>;
-    show: boolean;
 }
 
-export const FormError: FunctionalComponent<FormErrorProps> = ({ error, mapping, show}) => {
+export const FormError: FunctionalComponent<FormErrorProps> = ({ error, mapping}) => {
     const wrapped = (() => {
         if (!error) {
             return undefined;
@@ -16,7 +15,7 @@ export const FormError: FunctionalComponent<FormErrorProps> = ({ error, mapping,
         return Array.isArray(error) ? error : [error as FieldError];
     })();
 
-    if (!show || !wrapped || wrapped.every(e => !e.type)) {
+    if (!wrapped || wrapped.every(e => !e.type)) {
         return (<p className='form-error' />);
     }
     return (<p className='form-error'>

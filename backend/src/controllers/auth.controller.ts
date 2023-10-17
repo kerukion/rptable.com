@@ -4,6 +4,7 @@ import { controller, httpGet,httpPost, interfaces,  } from 'inversify-express-ut
 import { IAuthService } from '~backend/interfaces';
 import { routes } from '~backend/routes';
 import { TOKENS } from '~backend/tokens';
+import { core } from '~core';
 import { db } from '~db';
 
 @controller('')
@@ -12,14 +13,14 @@ export class AuthController implements interfaces.Controller {
     constructor(@inject(TOKENS.AuthService) private authService: IAuthService) { }
 
     @httpGet(routes['/currentuser'])
-    public async currentUser(req: express.Request): Promise<db.user.Schema | undefined> {
+    public async currentUser(req: core.Request): Promise<db.user.Schema | undefined> {
         const user = await this.authService.currentUser(req);
         return user;
     }
     
 
     @httpPost(routes['/api/v1/auth/google'])
-    public async googleOAuth(req: express.Request, res: express.Response): Promise<db.user.Schema | undefined> {
+    public async googleOAuth(req: core.Request<core.GoogleOAuthRequest>, res: express.Response): Promise<db.user.Schema | undefined> {
         const user = await this.authService.googleOAuth(req, res);
         res.status(201)
         return user;

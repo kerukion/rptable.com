@@ -20,3 +20,16 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+
+.form-row {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+
+.form-label {
+	font-size: 12px;
+	color: darkslategray;
+	margin-bottom: 1px;
+	font-weight: bold;
+}

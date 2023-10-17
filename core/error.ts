@@ -1,9 +1,18 @@
+export interface APIErrorResponse {
+    code: number; 
+    message: string;
+}
+
 export class APIError extends Error {
     constructor(public code: number, public message: string) {
         super();
     }
 
-    static toResponse(err: APIError): { code: number, message: string } {
+    static toString(err: APIErrorResponse) {
+        return `Error ${err.code}: ${err.message}`;
+    }
+
+    static toResponse(err: APIError): APIErrorResponse {
         return {
             code: err.code,
             message: err.message

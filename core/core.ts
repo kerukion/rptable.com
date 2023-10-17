@@ -1,5 +1,5 @@
 export * from './models';
 export * from './error';
-export * from './routes';
+export * from './endpoints';
 export * from './enums';
 export * from './constants';

@@ -19,7 +19,6 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
         onChange,
         onBlur,
         isError,
-        isTouched,
         isDisabled,
         options,
         size,
@@ -128,7 +127,7 @@ export const FormMultiSelect = <T, K,>(props: FormMultiSelectProps<T, K>): Retur
         <div
             ref={ref}
             className={`form-select ${classNames({
-                'form-select--error': isError && isTouched,
+                'form-select--error': isError,
                 'form-select--large': size === 'large',
                 'form-select--open': open,
                 'form-select--has-values': value && value.length >= 1,

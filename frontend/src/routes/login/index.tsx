@@ -1,14 +1,11 @@
 import './style.scss';
 import { FunctionalComponent, h } from 'preact';
 import { GoogleLogin } from 'react-google-login';
-import { useQueryClient } from 'react-query';
 import { useLoginMutation } from '~frontend/queries';
 
-export * from './redirect'
 export const Login: FunctionalComponent = () => {
     const GOOGLE_CLIENT_ID = '270087464037-10kcjadihf5tbe78mir7rs3h25jn9rq4.apps.googleusercontent.com';
-    const queryClient = useQueryClient();
-    const { mutateAsync: handleLogin } = useLoginMutation(queryClient);
+    const { mutateAsync: handleLogin } = useLoginMutation();
 
     return (
         <div className='login'>

@@ -5,7 +5,7 @@ import { FunctionalComponent, h } from 'preact';
 import { useRef } from 'preact/hooks';
 import { FormInputProps } from './props';
 
-export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ value, onChange, onBlur, isError, isTouched, size, ...props }) => {
+export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ value, onChange, onBlur, isError, size, ...props }) => {
     const inputEl = useRef<HTMLInputElement>(null);
     const handleChange = () => {
         if (inputEl.current?.value) {
@@ -27,7 +27,7 @@ export const FormInputNumber: FunctionalComponent<FormInputProps<number>> = ({ v
                 'form-input--medium': size === 'medium',
                 'form-input--large': size === 'large',
                 'form-input--elastic': size === 'elastic',
-                'form-input--error': isError && isTouched,
+                'form-input--error': isError,
             })}`}
             type='text'
             value={value}

@@ -1,19 +1,20 @@
-import './controllers';
 import 'reflect-metadata';
+import './controllers';
 import cookies from 'cookie-parser';
 import cors from 'cors';
 import express, { json, urlencoded } from 'express';
 import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { core } from '~core';
-import { IAuthService, IDbService, IUserService } from './interfaces';
-import { AuthService, MongoDbService, UserService } from './services';
+import { IAuthService, ICampaignService, IDbService, IUserService } from './interfaces';
+import { AuthService, CampaignService, MongoDbService, UserService } from './services';
 import { TOKENS } from './tokens';
 
 const IOC = new Container();
 IOC.bind<IDbService>(TOKENS.DbService).to(MongoDbService).inSingletonScope();
 IOC.bind<IUserService>(TOKENS.UserService).to(UserService);
 IOC.bind<IAuthService>(TOKENS.AuthService).to(AuthService);
+IOC.bind<ICampaignService>(TOKENS.CampaignService).to(CampaignService);
 
 const PORT = Number(process.env.PORT) || 8000;
 

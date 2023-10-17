@@ -1,0 +1,19 @@
+.form-textarea {
+    width: 600px;
+    height: 200px;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 7px 10px 0;
+    border: 1px solid #9f9e9e;
+    text-overflow: ellipsis;
+    resize: none;
+    font-family: inherit;
+
+    &:focus {
+        outline: 3px solid #ccdeff;
+    }
+
+    &--error {
+        border: 1px solid red;
+    }
+}

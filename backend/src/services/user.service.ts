@@ -22,7 +22,7 @@ export class UserService implements IUserService {
         }
     }
 
-    async getUserById(userId: db.user.Document['id']): Promise<db.user.Schema | undefined> {
+    async getUserById(userId: db.user.Schema['_id']): Promise<db.user.Schema | undefined> {
         const User = await this.dbService.Users();
         const user = await User.findById(userId);
         if (!user) {

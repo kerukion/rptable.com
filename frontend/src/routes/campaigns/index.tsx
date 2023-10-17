@@ -1,33 +1,45 @@
 import './style.scss';
 import { FunctionalComponent, h } from 'preact';
+import { useDispatch } from 'react-redux';
 import { core } from '~core';
-import { CampaignList } from '~frontend/components';
+import { db } from '~db';
+import { CampaignList, FormButton } from '~frontend/components';
+import { useCampaignsForUserQuery, useLoginQuery } from '~frontend/queries';
+import { asRoute, setRoute } from '~frontend/queries/routing';
+import { actions } from '~frontend/store';
 
 export * from './new';
 export * from './id';
 export const Campaigns: FunctionalComponent = () => {
-    const mockCampaign: core.Campaign = {
-        id: '1',
-        name: 'The Rival Gods',
-        description: 'The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.',
-        imageUrl: 'https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5'
+    const dispatch = useDispatch();
+    const { data: user, isLoading: loadingUser } = useLoginQuery();
+    const { data: campaigns, isLoading: loadingCampaigns } = useCampaignsForUserQuery(user?._id);
+    const chooseCampaign = (id: db.campaign.Schema['_id']) => {
+        dispatch(actions.campaign.set({ value: id }))
+        setRoute(asRoute('/campaigns/:id', id!))
+    };
+    const newCampaign = () => setRoute('/campaigns/new');
+
+    if (loadingUser || loadingCampaigns) {
+        return null;
     }
 
     return (
-        <div className='home'>
-            <div className='home--title-bar'>
+        <div className='campaigns'>
+            <div className='campaigns--title-bar'>
                 <h2>Choose your Campaign</h2>
-                <div className='home--new-campaign'>
-                    <button className='create'>
+                <div className='campaigns--new-campaign'>
+                    <FormButton kind='action'
+                        onClick={newCampaign}>
                         + New Campaign
-                        <div className='home--campaign-slots'>
+                    </FormButton>
+                    <div className='campaigns--campaign-slots'>
                         (1/2 slots used)
-                        </div>
-                    </button>
+                    </div>
                 </div>
             </div>
-           
-            <CampaignList campaigns={[mockCampaign]} />
+
+            <CampaignList campaigns={campaigns!} onSelect={(c) => chooseCampaign(c._id)} />
         </div>
     );
 };

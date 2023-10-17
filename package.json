@@ -8,7 +8,7 @@
     "npm": "^7"
   },
   "scripts": {
-    "start:backend": "docker-compose down -v --remove-orphans && docker-compose build && docker-compose up --remove-orphans",
+    "start:db": "docker-compose down -v --remove-orphans && docker-compose build && docker-compose up --remove-orphans",
     "start:app": "webpack-dev-server --open --config frontend/webpack.dev.js",
     "start:server": "webpack --config backend/webpack.dev.js --watch",
     "compile:app": "webpack --config frontend/webpack.prod.js",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@hookform/resolvers": "^2.8.2",
+    "@reduxjs/toolkit": "^1.6.2",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.12",
     "@types/debounce": "^1.2.1",

@@ -18,7 +18,6 @@ export * from './multiselect';
 export const FormSelect = <T, K,>({
     value,
     isError,
-    isTouched,
     isDisabled,
     options,
     size,
@@ -94,7 +93,7 @@ export const FormSelect = <T, K,>({
             tabIndex={0}
             ref={ref}
             className={`form-select ${classNames({
-                'form-select--error': isError && isTouched,
+                'form-select--error': isError,
                 'form-select--large': size === 'large',
                 'form-select--open': open,
                 'form-select--disabled': shouldDisable,

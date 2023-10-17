@@ -1,14 +1,20 @@
 import './style.scss';
-import { FunctionalComponent, h } from 'preact';
+import { Fragment, FunctionalComponent, h } from 'preact';
 import { Link } from 'preact-router/match';
+import { useSelector } from 'react-redux';
 import { core } from '~core';
 import { db } from '~db';
-import { useCampaignQuery, useLoginQuery, useSessionQuery } from '~frontend/queries';
+import { useCampaignQuery, useLoginQuery } from '~frontend/queries';
+import { asRoute, useCanRoute } from '~frontend/queries/routing';
+import { RootState } from '~frontend/store';
+import { AppLink } from '../app-link';
 
 export const Header: FunctionalComponent = () => {
     const userQuery = useLoginQuery();
-    const campaignQuery = useCampaignQuery();
-    const sessionQuery = useSessionQuery();
+    const { value: campaignId } = useSelector((state: RootState) => state.campaign)
+    const campaignQuery = useCampaignQuery(campaignId);
+    const canRouteToCampaigns = !useCanRoute('/campaigns');
+    const canRouteToEncounters = !useCanRoute('/encounters');
 
     const loginUI = (user: db.user.Schema | undefined, loading: boolean): JSX.Element => {
         if (loading) {
@@ -16,10 +22,10 @@ export const Header: FunctionalComponent = () => {
         }
 
         if (!user) {
-           return (
-                <Link href='/login'>
+            return (
+                <AppLink href='/login'>
                     Login
-                </Link>
+                </AppLink>
             );
         }
 
@@ -30,33 +36,44 @@ export const Header: FunctionalComponent = () => {
         );
     }
 
-    const sessionUI = (session?: core.Session): JSX.Element | null => {
-        if (!session) {
-            return null;
-        }
-        return (
-            <span>
-                Session #{session.number}: {session.name}
-            </span>
-        )
-    }
-
-    const campaignUI = (campaign?: core.Campaign, session?: core.Session): JSX.Element | null => {
+    const campaignUI = (campaign?: db.campaign.Schema): JSX.Element => {
         if (!campaign) {
-            return null;
+            return (
+                <span>
+                    <AppLink activeClassName='active' href='/campaigns'>
+                        Campaigns
+                    </AppLink>
+                </span>
+            );
         }
         return (
-            <span>
-                {sessionUI(session)} ({campaign.name})
-            </span>
-        )
+            <Fragment>
+                <span>
+                    <AppLink activeClassName='active' href={asRoute('/campaigns/:id', campaignId!)}>
+                        Campaign: {campaign.name}
+                    </AppLink>
+                </span>
+                <span>
+                    <AppLink activeClassName='active' href='/campaigns'>
+                        Campaigns
+                    </AppLink>
+                </span>
+            </Fragment>
+        );
     }
 
     return (
         <header className='header'>
             <h1 className='header--logo'> <Link href='/'> 🎲 RP Table </Link></h1>
             <nav>
-                {campaignUI(campaignQuery.data, sessionQuery.data)}
+                {canRouteToEncounters && (
+                    <AppLink activeClassName='active' href='/encounters/new'>
+                        New Encounter
+                    </AppLink>
+                )}
+                {canRouteToCampaigns && (
+                    campaignUI(campaignQuery.data)
+                )}
                 {loginUI(userQuery.data, userQuery.isLoading)}
             </nav>
         </header>

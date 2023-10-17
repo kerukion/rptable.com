@@ -30,19 +30,13 @@
 			padding: 0 15px;
 			min-width: 50px;
 			text-align: center;
-			background: rgba(255,255,255,0);
 			text-decoration: none;
 			color: #FFF;
 			will-change: background-color;
 			border-left: 1px solid white;
-			margin-left: 15px;
 
-			&:hover, &:active {
-				background: rgba(0,0,0,0.2);
-			}
-
-			&:active {
-				background: rgba(0,0,0,0.4);
+			&:hover, &:active, &.active {
+				background-color: #323232;
 			}
 		}
 	}
