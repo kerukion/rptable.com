@@ -9,39 +9,39 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=rptablecom
 
-  dependencies:
+  initialize_db:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: initialize_db.Dockerfile
     depends_on:
       - mongodb
     volumes:
       - ./:/usr/src/app
       - node_modules:/usr/src/app/node_modules/
 
-  # server:
-  #   volumes:
-  #     - ./:/usr/src/app
-  #     - node_modules:/usr/src/app/node_modules/:ro
-  #   build:
-  #     context: .
-  #     dockerfile: backend/Dockerfile
-  #   depends_on:
-  #     - dependencies
-  #   ports:
-  #     - '8000:8000'
+  server:
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/:ro
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    depends_on:
+      - initialize_db
+    ports:
+      - '8000:8000'
   
-  # webapp:
-  #   volumes:
-  #     - ./:/usr/src/app
-  #     - node_modules:/usr/src/app/node_modules/:ro
-  #   build:
-  #     context: .
-  #     dockerfile: frontend/Dockerfile
-  #   depends_on:
-  #     - server
-  #   ports:
-  #     - '8080:8080'
+  webapp:
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/:ro
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      - server
+    ports:
+      - '8080:8080'
 
 volumes:
   node_modules:

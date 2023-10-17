@@ -18,7 +18,7 @@ export class AuthService implements IAuthService {
         @inject(TOKENS.UserService) private userService: IUserService
     ) { }
 
-    async currentUser(req: core.Request): Promise<db.user.Schema | undefined> {
+    public async currentUser(req: core.Request): Promise<db.user.Schema | undefined> {
         const userCookie = req.cookies[AuthService.COOKIE_NAME];
         if (!userCookie) {
             throw new core.APIError(401, 'User is not logged in.');
@@ -30,7 +30,7 @@ export class AuthService implements IAuthService {
         return userData;
     }
 
-    async googleOAuth(req: core.Request<core.GoogleOAuthRequest>, res: express.Response): Promise<db.user.Schema> {
+    public async googleOAuth(req: core.Request<core.GoogleOAuthRequest>, res: express.Response): Promise<db.user.Schema> {
         const { token }  = req.body;
         const ticket = await client.verifyIdToken({
             idToken: token,
@@ -67,11 +67,11 @@ export class AuthService implements IAuthService {
     //     return user;
     // }
 
-    // logout(req: express.Request, res: express.Response): void {
-    //     res.clearCookie(LoginService.COOKIE_NAME);
-    // }
+    public logout(_: express.Request, res: express.Response): void {
+        res.clearCookie(AuthService.COOKIE_NAME);
+    }
 
-    loginWithCookie(res: express.Response, userId: db.user.Schema['_id']): void {
+    public loginWithCookie(res: express.Response, userId: db.user.Schema['_id']): void {
         res.cookie(AuthService.COOKIE_NAME, userId, {
             expires: new Date(Date.now() + AuthService.MINUTES_60_IN_MS),
             httpOnly: true,

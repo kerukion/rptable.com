@@ -1,11 +1,17 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { core } from '~core';
 import { db } from '~db';
 import { APIService } from '~frontend/services';
 import { CAMPAIGN, CURRENT_USER, SESSION, USER_CAMPAIGNS } from './keys';
 
 export const useLoginQuery = () => {
-    return useQuery<db.user.Schema, core.APIErrorResponse>(CURRENT_USER, APIService.getCurrentUser, { retry: false });
+    const queryClient = useQueryClient();
+    return useQuery<db.user.Schema, core.APIErrorResponse>(CURRENT_USER, APIService.getCurrentUser, {
+        retry: false,
+        onError: () => {
+            queryClient.setQueryData(CURRENT_USER, null);
+        },
+    });
 };
 
 export const useCampaignsForUserQuery = (userId: db.user.Schema['_id']) => {
@@ -18,7 +24,10 @@ export const useCampaignsForUserQuery = (userId: db.user.Schema['_id']) => {
 export const useCampaignQuery = (campaignId: db.campaign.Schema['_id']) => {
     return useQuery<db.campaign.Schema, core.APIErrorResponse>(
         [CAMPAIGN, campaignId],
-        () => APIService.getCampaign({ _id: campaignId })
+        () => APIService.getCampaign({ _id: campaignId }),
+        {
+            enabled: !!campaignId,
+        }
     );
 };
 
@@ -45,6 +54,7 @@ export const useSessionQuery = () => {
         const mockSession: core.Session = {
             id: '1',
             campaignId: '1',
+            description: '',
             name: 'Capital',
             number: 69,
         };

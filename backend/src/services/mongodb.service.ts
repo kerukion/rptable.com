@@ -13,7 +13,9 @@ interface ConnectionStatus {
 
 @injectable()
 export class MongoDbService implements IDbService {
-    private static DB_URL = 'mongodb://localhost:27017/rptablecom';
+    private static DB_URL = 'mongodb://mongodb:27017/rptablecom';
+    // if running locally:
+    // private static DB_URL = 'mongodb://localhost:27017/rptablecom';
     private connectionStatus$ = new BehaviorSubject<ConnectionStatus>({ success: false, error: undefined });
     private connectionRequested$ = new Subject<void>();
 

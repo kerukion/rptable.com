@@ -33,9 +33,9 @@ export const Campaigns: FunctionalComponent = () => {
                         onClick={newCampaign}>
                         + New Campaign
                     </FormButton>
-                    <div className='campaigns--campaign-slots'>
+                    {/* <div className='campaigns--campaign-slots'>
                         (1/2 slots used)
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

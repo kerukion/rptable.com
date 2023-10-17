@@ -1,6 +1,5 @@
 .form-textarea {
-    width: 600px;
-    height: 200px;
+    height: 65px;
     border-radius: 6px;
     font-size: 15px;
     padding: 7px 10px 0;
@@ -15,5 +14,17 @@
 
     &--error {
         border: 1px solid red;
+    }
+
+    &--medium {
+        width: 600px;
+    }
+
+    &--x-large {
+        width: 850px;
+    }
+
+    &--elastic {
+        width: 100%;
     }
 }

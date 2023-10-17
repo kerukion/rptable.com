@@ -6,6 +6,7 @@ const getEndpoints = (baseUrl: string) => {
     const addHost = addHostFn(baseUrl);
     return {
         '/login': addHost('/login'),
+        '/logout': addHost('/logout'),
         '/currentuser': addHost('/currentuser'),
         '/api/v1/auth/google': addHost('/api/v1/auth/google'),
         '/campaigns': addHost('/campaigns'),

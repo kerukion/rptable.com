@@ -12,8 +12,8 @@ export interface ICampaignService {
 export interface IAuthService {
     currentUser: (req: core.Request) => Promise<db.user.Schema | undefined>;
     googleOAuth: (req: core.Request<core.GoogleOAuthRequest>, res: express.Response) => Promise<db.user.Schema>;
+    logout: (req: express.Request, res: express.Response) => void;
     // login: (req: express.Request<Record<string, unknown>, Record<string, unknown>, core.LoginRequest>, res: express.Response) => Promise<db.user.Schema | undefined>;
-    // logout: (req: express.Request, res: express.Response) => void;
 }
 
 export interface IDbService {

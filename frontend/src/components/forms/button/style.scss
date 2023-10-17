@@ -16,6 +16,14 @@
     justify-content: center;
     align-items: center;
 
+    &--submit {
+        background: #57af08;
+        
+        &:hover {
+            background: #47890c;
+        }
+    }
+
 	&--action {
 		background: #287cd7;
     	border: 1px solid #66708d;
@@ -34,6 +42,13 @@
 		}
     }
 
+    &--misc {
+        background: black;
+        &:hover{ 
+            background: gray;
+        }
+    }
+
     &--disabled {
         background-color: #a2a8af;
         border: 1px solid #818181;
@@ -47,10 +62,15 @@
     &--fit {
 		min-width: 0px;
         padding: 5px;
+        height: fit-content;
     }
 
 	&--small {
 		min-width: 50px;
+	}
+
+    &--medium {
+		min-width: 140px;
 	}
 
     &--elastic {

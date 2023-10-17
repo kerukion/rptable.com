@@ -1,0 +1,50 @@
+.floating-button-list {
+    display: inline-grid;
+    height: 100%;
+    position: relative;
+    &:hover .button-tray-wrapper {
+        display: flex;
+    }
+
+    .child {
+        display: contents;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .button-tray-border {
+        // background: purple;  // for debugging
+        position: absolute;
+        pointer-events: all;
+        top: 100%;
+        width: calc(100% + 19px);
+        right: 0;
+        padding: 10px 10px 20px 20px;
+    }
+
+    .button-tray-wrapper {
+        // background: green; // for debugging
+        grid-column: 1;
+        grid-row: 1;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        display: none;
+        height: 100%;
+    }
+
+    .button-tray {
+        width: 100%;
+        background: white;
+        border: 1px solid #585858;
+        border-radius: 4px;
+        padding: 5px;
+        padding-bottom: 0px;
+        display: flex;
+        flex-direction: column;
+
+        > * {
+            margin-bottom: 5px;
+        }
+    }
+}

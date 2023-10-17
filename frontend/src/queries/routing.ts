@@ -12,7 +12,7 @@ export const asRoute = (r: AppRoutes, id: string): AppRoutes => {
     return r.replace(':id', id) as AppRoutes;
 };
 
-export const setRoute = (r: AppRoutes) => route(r, true);
+export const setRoute = (r: AppRoutes) => route(r);
 const ROUTES = [
     '/login',
     '/campaigns',
@@ -51,7 +51,7 @@ const routeMatch: Partial<Record<AppRoutes, RegExp>> = {
     '/encounters/:id': /^\/encounters\/\w{24}$/,
 };
 
-const getAppRoute = (route: AppRoutes): AppRoutes | undefined => {
+const castToAppRoute = (route: AppRoutes): AppRoutes | undefined => {
     const match = Object.entries(routeMatch).find(([_, reg]) => reg.test(route));
     if (match) {
         return match[0] as AppRoutes;
@@ -82,10 +82,10 @@ const canRoute: Record<AppRoutes, Array<(c: RouteContext) => RouteResponse>> = (
     '/encounters/:id': [loggedInGuard],
 });
 
-export const useCanRoute = (route: AppRoutes): RouteResponse => {
+export const useRouteGuards = (route: AppRoutes): RouteResponse => {
     const { data: user } = useLoginQuery();
     const { value: campaignId } = useSelector((state: RootState) => state.campaign);
-    const appRoute = getAppRoute(route);
+    const appRoute = castToAppRoute(route);
     console.log('useCanRoute: approute', appRoute, route);
     if (!appRoute) {
         return '/login';
@@ -93,6 +93,6 @@ export const useCanRoute = (route: AppRoutes): RouteResponse => {
     const context: RouteContext = { user, campaignId };
     const failedGuard = canRoute[appRoute].find(rg => !!rg(context));
     const redirect = failedGuard ? failedGuard(context) : undefined;
-    console.log('useCanRoute: result', route, user, campaignId, redirect);
+    console.log('useCanRoute: result', !!failedGuard, route, user?._id, campaignId, redirect);
     return redirect;
 };

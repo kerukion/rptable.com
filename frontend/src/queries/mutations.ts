@@ -22,6 +22,20 @@ export const useLoginMutation = () => {
     });
 };
 
+export const useLogoutMutation = () => {
+    const queryClient = useQueryClient();
+    return useMutation<void, core.APIErrorResponse, void>(() => {
+        return APIService.logout();
+    }, {
+        onSuccess: () => {
+            // queryClient.removeQueries(CURRENT_USER);
+            // queryClient.setQueryData(CURRENT_USER, null);
+            queryClient.invalidateQueries(CURRENT_USER);
+            // queryClient.refetchQueries(CURRENT_USER);
+        },
+    });
+};
+
 export const useCreateCampaignMutation = () => {
     const dispatch = useDispatch();
     return useMutation<db.campaign.Schema, core.APIErrorResponse, core.NewCampaignForm>((formData) => {

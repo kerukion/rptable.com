@@ -4,17 +4,24 @@ import { Link } from 'preact-router/match';
 import { useSelector } from 'react-redux';
 import { core } from '~core';
 import { db } from '~db';
-import { useCampaignQuery, useLoginQuery } from '~frontend/queries';
-import { asRoute, useCanRoute } from '~frontend/queries/routing';
+import { useCampaignQuery, useLoginQuery, useLogoutMutation } from '~frontend/queries';
+import { asRoute, useRouteGuards } from '~frontend/queries/routing';
 import { RootState } from '~frontend/store';
+import { useTraceUpdate } from '~frontend/utils/trace';
 import { AppLink } from '../app-link';
+import { FloatingButtons } from '../floating-buttons';
+import { FormButton } from '../forms';
 
 export const Header: FunctionalComponent = () => {
     const userQuery = useLoginQuery();
+    console.log('Header re-render', userQuery.data);
     const { value: campaignId } = useSelector((state: RootState) => state.campaign);
     const campaignQuery = useCampaignQuery(campaignId);
-    const canRouteToCampaigns = !useCanRoute('/campaigns');
-    const canRouteToEncounters = !useCanRoute('/encounters');
+    const canRouteToCampaigns = !useRouteGuards('/campaigns');
+    const { mutateAsync: handleLogout } = useLogoutMutation();
+
+    // const x = useTraceUpdate();
+    // console.log(x);
 
     const loginUI = (user: db.user.Schema | undefined, loading: boolean): JSX.Element => {
         if (loading) {
@@ -30,9 +37,15 @@ export const Header: FunctionalComponent = () => {
         }
 
         return (
-            <Link href={`/profile/${user._id}`}>
-                {user.username}
-            </Link>
+            <FloatingButtons child={
+                <Link href={`/profile/${user._id}`}>
+                    {user.username}
+                </Link>
+            }>
+                <FormButton kind='misc' size='elastic' onClick={() => handleLogout()}>Logout</FormButton>
+                {/* <FormButton kind='misc' size='elastic'>settings</FormButton> */}
+            </FloatingButtons>
+
         );
     };
 
@@ -50,7 +63,7 @@ export const Header: FunctionalComponent = () => {
             <Fragment>
                 <span>
                     <AppLink activeClassName='active' href={asRoute('/campaigns/:id', campaignId!)}>
-                        Campaign: {campaign.name}
+                        {campaign.name}
                     </AppLink>
                 </span>
                 <span>
@@ -66,11 +79,6 @@ export const Header: FunctionalComponent = () => {
         <header className='header'>
             <h1 className='header--logo'> <Link href='/'> 🎲 RP Table </Link></h1>
             <nav>
-                {canRouteToEncounters && (
-                    <AppLink activeClassName='active' href='/encounters/new'>
-                        New Encounter
-                    </AppLink>
-                )}
                 {canRouteToCampaigns && (
                     campaignUI(campaignQuery.data)
                 )}

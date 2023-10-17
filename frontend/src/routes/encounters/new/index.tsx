@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import { core } from '~core';
 import { db } from '~db';
 import { CreatureCard, FormButton, FormError, FormInput, FormInputNumber, FormMultiSelect, FormSelect, GroupCard } from '~frontend/components';
+import { useCampaignQuery } from '~frontend/queries';
 import { RootState } from '~frontend/store';
 
 export const NewEncounter: FunctionalComponent = () => {
@@ -42,15 +43,7 @@ export const NewEncounter: FunctionalComponent = () => {
 
     // asserting that core.Campaign will never be undefined in this context
     const { value: campaignId } = useSelector((state: RootState) => state.campaign);
-    // const { data: campaign } = useCampaignQuery(campaignId);
-
-    const campaign: db.campaign.Schema = {
-        _id: '1',
-        name: 'The Rival Gods',
-        description: 'The world of Estrador, invaded by the magic of the Godlands, becomes the latest battlefield in the Far War of the Four Rival Gods.',
-        imageUrl: 'https://static1.thegamerimages.com/wordpress/wp-content/uploads/2020/04/Tyr.jpg?q=50&fit=crop&w=1400&dpr=1.5',
-        user_createdby: '1',
-    };
+    const { data: campaign } = useCampaignQuery(campaignId);
 
     if (!campaign) {
         console.log('wtf');
@@ -61,17 +54,20 @@ export const NewEncounter: FunctionalComponent = () => {
             id: '1',
             campaignId: '1',
             name: 'Capital',
+            description: 'asd',
             number: 67,
         },
         {
             id: '2',
             campaignId: '1',
+            description: 'asd',
             name: 'Tethers',
             number: 68,
         },
         {
             id: '3',
             campaignId: '1',
+            description: 'asd',
             name: 'Enigmas',
             number: 69,
         },

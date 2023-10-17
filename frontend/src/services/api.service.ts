@@ -59,6 +59,16 @@ export class APIService {
         return await res.json();
     }
 
+    static async logout(): Promise<void> {
+        const res = await fetch(routes['/logout'], {
+            method: 'DELETE',
+            headers: new Headers({ 'content-type': 'application/json' }),
+            credentials: 'include',
+        });
+        await APIService.throwIfError(res);
+        return await res.json();
+    }
+
     static async getCurrentUser(): Promise<db.user.Schema> {
         const res = await fetch(routes['/currentuser'], {
             credentials: 'include',

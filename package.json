@@ -8,7 +8,7 @@
     "npm": "^7"
   },
   "scripts": {
-    "start:db": "docker-compose down -v --remove-orphans && docker-compose build && docker-compose up --remove-orphans",
+    "start": "docker-compose down -v --remove-orphans && docker-compose build && docker-compose up --remove-orphans",
     "start:app": "webpack-dev-server --open --config frontend/webpack.dev.js",
     "start:server": "webpack --config backend/webpack.dev.js --watch",
     "compile:app": "webpack --config frontend/webpack.prod.js",

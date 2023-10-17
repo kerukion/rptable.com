@@ -5,6 +5,7 @@
         "typescript",
         "typescriptreact",
     ],
+    "editor.guides.bracketPairs": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true,
     },

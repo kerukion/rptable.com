@@ -5,5 +5,5 @@ export type FormInputProps<T> = FormProps & Omit<React.InputHTMLAttributes<HTMLI
     onChange: (t?: T) => void;
     onBlur: () => void;
     isError: boolean;
-    size?: 'medium' | 'large' | 'elastic';
+    size?: 'medium' | 'large' | 'x-large' | 'elastic';
 }

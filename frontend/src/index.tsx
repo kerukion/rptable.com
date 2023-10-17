@@ -6,14 +6,14 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { AppRoute, Header, RedirectTo } from './components';
 import { useLoginQuery } from './queries';
-import { AppRoutes, setRoute, useCanRoute } from './queries/routing';
+import { AppRoutes, setRoute, useRouteGuards } from './queries/routing';
 import { Campaign, Campaigns, Encounter, Encounters, Login, NewCampaign, NewEncounter } from './routes';
 import { store } from './store';
 
 const MainRoutes: FunctionalComponent = () => {
     const userQuery = useLoginQuery();
     const [url, setUrl] = useState<AppRoutes>('/login');
-    const redirect = useCanRoute(url);
+    const redirect = useRouteGuards(url);
     console.log('MR rerender', url, redirect);
 
     if (redirect) {

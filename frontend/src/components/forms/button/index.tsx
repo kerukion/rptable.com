@@ -9,7 +9,7 @@ export type FormButtonProps = FormProps
     & {
     isDisabled?: boolean;
     size?: 'fit' | 'small' | 'medium' | 'large' | 'elastic';
-    kind?: 'action' | 'delete';
+    kind?: 'submit' | 'action' | 'delete' | 'misc';
 }
 
 export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = false, size, kind, ...props }) => {
@@ -29,7 +29,9 @@ export const FormButton: FunctionalComponent<FormButtonProps> = ({ isDisabled = 
                 'form-button--large': size === 'large',
                 'form-button--elastic': size === 'elastic',
                 'form-button--action': kind === 'action',
+                'form-button--submit': kind === 'submit',
                 'form-button--delete': kind === 'delete',
+                'form-button--misc': kind === 'misc',
                 'form-button--disabled': isDisabled,
             })}`}
             type='button' >

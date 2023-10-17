@@ -13,10 +13,7 @@ export const FormInput: FunctionalComponent<FormInputProps<string>> = ({ value, 
     return (
         <input 
             {...props}
-            className={`form-input ${classNames({
-                'form-input--medium': size === 'medium',
-                'form-input--large': size === 'large',
-                'form-input--elastic': size === 'elastic',
+            className={`form-input form-input--${size} ${classNames({
                 'form-input--error': isError,
             })}`}
             type='text'

@@ -16,6 +16,7 @@ export interface Session {
     id: string;
     campaignId: string;
     name: string;
+    description: string;
     number: number;
 }
 

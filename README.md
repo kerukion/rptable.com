@@ -1,6 +1,6 @@
 # README.md
 
-## Commands
+## Getting started
 * `npm start`: Start everything via Docker Compose
 * `npm test`: Runs Jest + Enzyme tests
 * `npm run lint`: Run ESLint on the project

@@ -1,6 +1,6 @@
 import express from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet,httpPost, interfaces  } from 'inversify-express-utils';
+import { controller, httpDelete, httpGet,httpPost, interfaces  } from 'inversify-express-utils';
 import { IAuthService } from '~backend/interfaces';
 import { routes } from '~backend/routes';
 import { TOKENS } from '~backend/tokens';
@@ -33,11 +33,10 @@ export class AuthController implements interfaces.Controller {
     //     return user;
     // }
 
-    // @httpDelete(routes["/logout"])
-    // private logout(req: express.Request, res: express.Response): { code: number } {
-    //     this.authService.logout(req, res);
-    //     return {
-    //         code: 200
-    //     };
-    // }
+    @httpDelete(routes['/logout'])
+    public logout(req: express.Request, res: express.Response): object {
+        this.authService.logout(req, res);
+        res.status(200); // 204 has weird behavior
+        return {};
+    }
 }
